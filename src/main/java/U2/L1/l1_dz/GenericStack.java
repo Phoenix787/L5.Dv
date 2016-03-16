@@ -48,18 +48,21 @@ public class GenericStack<E> implements Stack<E> {
 
     @Override
     public boolean isEmpty() {
-        if (size == 0) return true;
-        return false;
+        return size == 0;
     }
 
     @Override
     public boolean isFull() {
-        if (maxSize == size) return true;
-        return false;
+        return maxSize == size;
     }
 
     @Override
     public void pushAll(Collection<? extends E> src) throws StackException {
+        this.size += src.size();
+        if (isFull()) {
+            this.size-=src.size();
+            throw new StackException("Stack is overflow");
+        }
         for (E e : src) {
             push(e);
         }
@@ -68,6 +71,7 @@ public class GenericStack<E> implements Stack<E> {
 
     @Override
     public void popAll(Collection<? super E> dst) throws StackException {
+        //this.size -= dst.size();
         while (!isEmpty()){
             dst.add(pop());
         }
