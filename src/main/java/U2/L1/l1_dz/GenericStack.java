@@ -6,6 +6,7 @@ import java.util.LinkedList;
 /**
  * Created by Ксения on 16.03.2016.
  *
+ *
  */
 public class GenericStack<E> implements Stack<E> {
 

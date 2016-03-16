@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws StackException {
         GenericStack<Integer> stack = new GenericStack<>(5);
 
+
         stack.push(5);
         stack.push(3);
         stack.push(1);
