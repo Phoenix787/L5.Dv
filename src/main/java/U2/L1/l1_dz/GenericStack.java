@@ -38,7 +38,7 @@ public class GenericStack<E> implements Stack<E> {
 
     @Override
     public E peek() {
-        return array.get(size-1);
+        return array.getLast();
     }
 
     @Override
