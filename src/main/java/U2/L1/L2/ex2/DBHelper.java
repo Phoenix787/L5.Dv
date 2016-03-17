@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class DBHelper {
     private static final Logger logger = LoggerFactory.getLogger(DBHelper.class);
-    private Connection conn;
+    private static Connection conn;
     private static DBHelper dbHelper;
     private static final String DATABASE_URL = "jdbc:h2:./h2db";
 
@@ -37,7 +37,9 @@ public class DBHelper {
          * Class.forName - механизм рефлекшен, т е механизм работы в java непосредственно с откомпилированными файлами
          *
          */
-       // Class.forName(DATABASE_URL); //загружаем драйвер в память
+       // Class.forName(DATABASE_URL); //загружаем драйвер в память - альтернативный метод DriverManager
+
+//
 
         try {
             String name = "tully";
@@ -52,6 +54,22 @@ public class DBHelper {
             logger.error("Can not connect to db. ");
         }
         return null;
+    }
+
+    public static void closeResource(AutoCloseable res) {
+        try {
+            if (res != null) {
+                res.close();
+                res = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeConnection(){
+        closeResource(conn);
+        conn = null;
     }
 
 
