@@ -1,5 +1,10 @@
 package U2.L1.L2.ex1;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -7,6 +12,8 @@ import java.util.ArrayList;
  *
  */
 public class Main {
+    final static Logger logger = LoggerFactory.getLogger(Main.class);
+
 
     public static void main(String[] args) throws StackException {
         GenericStack<Integer> stack = new GenericStack<>(5);
@@ -27,9 +34,15 @@ public class Main {
         src.add(14);
         src.add(16);
 
+        logger.info("It is write");
+
         stack.pushAll(src);
         System.out.println(stack);
 
 
+
+
     }
+
+
 }
