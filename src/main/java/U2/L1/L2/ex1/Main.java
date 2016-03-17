@@ -3,8 +3,6 @@ package U2.L1.L2.ex1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
