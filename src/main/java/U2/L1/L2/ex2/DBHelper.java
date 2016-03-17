@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Ксения on 17.03.2016.
+ *
  */
 public class DBHelper {
     private static final Logger logger = LoggerFactory.getLogger(DBHelper.class);
@@ -35,13 +36,9 @@ public class DBHelper {
 
         /**
          * Class.forName - механизм рефлекшен, т е механизм работы в java непосредственно с откомпилированными файлами
-         *
+         *  Class.forName(DATABASE_URL); //загружаем драйвер в память - альтернативный метод DriverManager
          */
-       // Class.forName(DATABASE_URL); //загружаем драйвер в память - альтернативный метод DriverManager
-
-//
-
-        try {
+       try {
             String name = "tully";
             String password = "tully";
             JdbcDataSource ds = new JdbcDataSource();
