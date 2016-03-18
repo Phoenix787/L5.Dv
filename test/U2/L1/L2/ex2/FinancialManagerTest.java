@@ -16,7 +16,7 @@ public class FinancialManagerTest {
 
     private  static FinancialManager fm;
     private static DBHelper dbHelper;
-    private static GUI controller;
+    private static GUI controller = mock(GUI.class);
 
     @BeforeClass
     public static void setUp() throws Exception {
