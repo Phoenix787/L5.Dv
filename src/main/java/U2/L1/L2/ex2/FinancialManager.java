@@ -1,5 +1,7 @@
 package U2.L1.L2.ex2;
+import U2.L1.L2.ex2.controller.GUI;
 import U2.L1.L2.ex2.datasets.User;
+import U2.L1.L2.ex2.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,47 +16,57 @@ public class FinancialManager {
 
     private DBHelper dbHelper;
     private final Logger logger = LoggerFactory.getLogger(FinancialManager.class.getName());
+    private GUI controller;
 
-    public void start(){
-        dbHelper = DBHelper.getInstance();
-//        System.out.println("Вас приветствует система регистрации нового пользователя. ");
-//        System.out.println("Введите имя: ");
-//        Scanner sc = new Scanner(System.in);
-//        String login = sc.nextLine();
-//        System.out.println("Введите пароль: ");
-//        String pswd = sc.nextLine();
-
-
-
-//        dbHelper.createTable();
-//        dbHelper.addUser(new User("Alisa", "123"));
-//        System.out.println(dbHelper.getUser(login));
-//
-//        System.out.println(signIn(login, pswd));
-        Set<String> userNames = dbHelper.getUserNames();
-        for (String userName : userNames) {
-            System.out.println(userName);
-        }
-
-//        System.out.println(signUp(login, pswd) ?
-//                "Вы зарегистрировались успешно. Введите логин/пароль" :
-//                "Возможно данный логин уже используется");
+    public FinancialManager(DBHelper dbHelper, GUI controller) {
+        this.dbHelper = dbHelper;
+        this.controller = controller;
+        dbHelper.createTable();
     }
 
-    // TODO: 18.03.2016 написать процедуру авторизации/регистрации пользователя, проверив имя на уникальность и пароль на совпадение
-    //получаем set из юзеров -> если в нем больше чем 1 пользователь - значит имя не уникально, пусть еще раз регистрируется
-    // TODO: 18.03.2016 сделать RegistrationController для связи FM и Main
+    public void start(){
+        controller.show();
+        int i = Integer.valueOf(controller.getUserInput());
+        switch (i){
+            case 1: { //авторизоваться
+                controller.sendMessage("Введите логин: ");
+                String login = controller.getUserInput();
+                controller.sendMessage("Введите пароль: ");
+                String password = controller.getUserInput();
+                if (signIn(login, password)) {
+                    controller.sendMessage("Авторизация прошла успешно!");
+                } else {
+                    controller.sendMessage("Неверный логин/пароль");
+                }
+            }
+            break;
+            case 2: {
+                controller.sendMessage("Введите логин: ");
+                String login = controller.getUserInput();
+                controller.sendMessage("Введите пароль: ");
+                String password = controller.getUserInput();
+                if (!signUp(login, password)) {
+                    controller.sendMessage("Пользователь с таким логином уже существует.");
+                } else
+                controller.sendMessage("Вы успешно зарегистрировались!");
+            }
+            break;
+
+        }
+    }
+
 
     public boolean signIn(String login, String password){
         User user = dbHelper.getUser(login);
 
-        if (user != null && password.equals(user.getPassword())){
+        if (user != null && new String(PasswordHelper.getInstance().getSha256Hash(password)).equals(user.getPassword())){
             logger.info("User {} is entered.", login);
             return true;
         }
         return false;
 
     }
+
 
     public boolean signUp(String name, String password) {
         User user = dbHelper.getUser(name);
@@ -63,9 +75,9 @@ public class FinancialManager {
             System.out.println("User with such login exists. Please choose other login or sign in with your login/password.");
             return false;
         }
-        dbHelper.addUser(new User(name, password));
+
+        dbHelper.addUser(new User(name, new String(PasswordHelper.getInstance().getSha256Hash(password))));
         logger.info("New User with login: {} and password: {} have added. ", name, password);
         return true;
     }
-
 }

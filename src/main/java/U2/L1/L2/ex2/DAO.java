@@ -5,6 +5,7 @@ import U2.L1.L2.ex2.datasets.DataStore;
 import U2.L1.L2.ex2.datasets.Record;
 import U2.L1.L2.ex2.datasets.User;
 import U2.L1.L2.ex2.util.Executor;
+import U2.L1.L2.ex2.util.PasswordHelper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,8 +19,11 @@ import java.util.Set;
 public class DAO implements DataStore{
     private Executor executor;
 
+
+
     public DAO(Connection connection) {
         this.executor = new Executor(connection);
+
     }
 
 
@@ -31,7 +35,7 @@ public class DAO implements DataStore{
                 return new User(result.getString("name"), result.getString("password"));
             });
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             return null;
         }
     }
@@ -68,7 +72,6 @@ public class DAO implements DataStore{
     @Override
     public void addUser(User user) {
         try {
-            createTable();
             executor.execUpdate("insert into users(name, password) values('"+ user.getName() +"', '"+ user.getPassword()+"');");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,6 +105,14 @@ public class DAO implements DataStore{
 
     @Override
     public User removeUser(User user) {
+        try {
+            if (getUser(user.getName()) != null) {
+                executor.execUpdate("delete from users where name = '" + user.getName() + "'");
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

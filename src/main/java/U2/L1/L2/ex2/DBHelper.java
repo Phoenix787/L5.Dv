@@ -20,7 +20,7 @@ public class DBHelper {
     private static DBHelper dbHelper;
     private static final String DATABASE_URL = "jdbc:h2:./h2db";
 
-    public static DBHelper getInstance(){
+    static DBHelper getInstance(){
         if (dbHelper == null) {
             dbHelper = new DBHelper();
         }
@@ -29,7 +29,6 @@ public class DBHelper {
 //синглтон не идеальный, нет многопоточности, нет двойной проверки
     private DBHelper(){
         logger.info("Opening database: {}", DATABASE_URL);
-
         conn = getH2Connection();
 
     }
@@ -54,9 +53,12 @@ public class DBHelper {
         return null;
     }
 
+
+
     public void addUser(User user){
 
         DAO dao = new DAO(conn);
+
         dao.addUser(user);
         logger.info("Add new user with name: {}", user.getName());
         //return dao.getUser(user.getName()).getId();
@@ -78,6 +80,12 @@ public class DBHelper {
 
     }
 
+    public User removeUser(String name){
+        DAO dao = new DAO(conn);
+        User user = dao.getUser(name);
+        return dao.removeUser(user);
+    }
+
 
 
 
@@ -95,7 +103,7 @@ public class DBHelper {
         }
     }
 
-    public static void closeConnection(){
+    public void closeConnection(){
         closeResource(conn);
         conn = null;
     }
