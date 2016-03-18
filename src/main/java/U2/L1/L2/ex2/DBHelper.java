@@ -1,5 +1,6 @@
 package U2.L1.L2.ex2;
 
+import U2.L1.L2.ex2.datasets.User;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,6 @@ public class DBHelper {
     }
 
     private Connection getH2Connection() {
-
         /**
          * Class.forName - механизм рефлекшен, т е механизм работы в java непосредственно с откомпилированными файлами
          *  Class.forName(DATABASE_URL); //загружаем драйвер в память - альтернативный метод DriverManager
@@ -53,7 +53,32 @@ public class DBHelper {
         return null;
     }
 
-    public static void closeResource(AutoCloseable res) {
+    public long addUser(User user){
+
+        DAO dao = new DAO(conn);
+        dao.addUser(user);
+        logger.info("Add new user with name: {}", user.getName());
+        return dao.getUser(user.getName()).getId();
+    }
+
+    public User getUser(String name) {
+        DAO dao = new DAO(conn);
+        return dao.getUser(name);
+    }
+
+    public void createTable(){
+        DAO dao = new DAO(conn);
+        dao.createTable();
+
+    }
+
+
+
+
+
+
+
+    private static void closeResource(AutoCloseable res) {
         try {
             if (res != null) {
                 res.close();
