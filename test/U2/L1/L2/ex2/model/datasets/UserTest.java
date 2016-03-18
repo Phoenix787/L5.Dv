@@ -1,9 +1,8 @@
-package U2.L1.L2.ex2.datasets;
+package U2.L1.L2.ex2.model.datasets;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;

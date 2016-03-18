@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2.util;
+package U2.L1.L2.ex2.model.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

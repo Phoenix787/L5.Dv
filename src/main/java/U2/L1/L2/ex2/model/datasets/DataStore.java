@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2.datasets;
+package U2.L1.L2.ex2.model.datasets;
 
 import java.util.Set;
 
