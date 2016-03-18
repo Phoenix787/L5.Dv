@@ -8,6 +8,7 @@ import U2.L1.L2.ex2.util.Executor;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -37,11 +38,25 @@ public class DAO implements DataStore{
 
     @Override
     public Set<String> getUserNames() {
-        return null;
+        try {
+            return executor.execQuery("Select name from users;", resultSet -> {
+                //resultSet.next();
+                Set<String> result = new HashSet<String>();
+                while (resultSet.next()){
+                    result.add(resultSet.getString(1));
+                }
+                return result;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Set<Account> getAccounts(User owner) {
+
+
         return null;
     }
 
@@ -53,6 +68,7 @@ public class DAO implements DataStore{
     @Override
     public void addUser(User user) {
         try {
+            createTable();
             executor.execUpdate("insert into users(name, password) values('"+ user.getName() +"', '"+ user.getPassword()+"');");
         } catch (SQLException e) {
             e.printStackTrace();

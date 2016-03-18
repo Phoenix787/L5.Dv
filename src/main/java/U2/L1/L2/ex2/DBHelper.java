@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * Created by Ксения on 17.03.2016.
@@ -53,17 +54,22 @@ public class DBHelper {
         return null;
     }
 
-    public long addUser(User user){
+    public void addUser(User user){
 
         DAO dao = new DAO(conn);
         dao.addUser(user);
         logger.info("Add new user with name: {}", user.getName());
-        return dao.getUser(user.getName()).getId();
+        //return dao.getUser(user.getName()).getId();
     }
 
     public User getUser(String name) {
         DAO dao = new DAO(conn);
         return dao.getUser(name);
+    }
+
+    public Set<String> getUserNames(){
+        DAO dao = new DAO(conn);
+        return dao.getUserNames();
     }
 
     public void createTable(){
