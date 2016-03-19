@@ -1,7 +1,7 @@
-package U2.L1.L2.ex2.controller;
+package U2.L2.ex2.controller;
 
-import U2.L1.L2.ex2.model.FinancialManager;
-import U2.L1.L2.ex2.view.ConsoleView;
+import U2.L2.ex2.model.FinancialManager;
+import U2.L2.ex2.view.ConsoleView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,8 +1,8 @@
-package U2.L1.L2.ex2.controller;
+package U2.L2.ex2.controller;
 
-import U2.L1.L2.ex2.model.DAO;
-import U2.L1.L2.ex2.model.datasets.DataStore;
-import U2.L1.L2.ex2.model.datasets.User;
+import U2.L2.ex2.model.DAO;
+import U2.L2.ex2.model.datasets.DataStore;
+import U2.L2.ex2.model.datasets.User;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

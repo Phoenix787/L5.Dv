@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2.model.util;
+package U2.L2.ex2.model.util;
 
 import U2.L1.L2.ex2.model.datasets.Record;
 import java.util.Comparator;

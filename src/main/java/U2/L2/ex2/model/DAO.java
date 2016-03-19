@@ -1,10 +1,10 @@
-package U2.L1.L2.ex2.model;
+package U2.L2.ex2.model;
 
-import U2.L1.L2.ex2.model.datasets.Account;
-import U2.L1.L2.ex2.model.datasets.DataStore;
-import U2.L1.L2.ex2.model.datasets.Record;
-import U2.L1.L2.ex2.model.datasets.User;
-import U2.L1.L2.ex2.model.util.Executor;
+import U2.L2.ex2.model.datasets.Account;
+import U2.L2.ex2.model.datasets.DataStore;
+import U2.L2.ex2.model.datasets.Record;
+import U2.L2.ex2.model.datasets.User;
+import U2.L2.ex2.model.util.Executor;
 
 import java.sql.Connection;
 import java.sql.SQLException;

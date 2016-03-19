@@ -1,8 +1,8 @@
-package U2.L1.L2.ex2.model;
-import U2.L1.L2.ex2.controller.DBHelper;
-import U2.L1.L2.ex2.controller.GUI;
-import U2.L1.L2.ex2.model.datasets.User;
-import U2.L1.L2.ex2.model.util.PasswordHelper;
+package U2.L2.ex2.model;
+import U2.L2.ex2.controller.DBHelper;
+import U2.L2.ex2.controller.GUI;
+import U2.L2.ex2.model.datasets.User;
+import U2.L2.ex2.model.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

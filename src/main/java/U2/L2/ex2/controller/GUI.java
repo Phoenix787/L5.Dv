@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2.controller;
+package U2.L2.ex2.controller;
 
 /**
  * Created by Ксения on 18.03.2016.

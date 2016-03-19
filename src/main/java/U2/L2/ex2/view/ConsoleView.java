@@ -1,6 +1,4 @@
-package U2.L1.L2.ex2.view;
-
-import U2.L1.L2.ex2.controller.ConsoleController;
+package U2.L2.ex2.view;
 
 import java.util.Scanner;
 
