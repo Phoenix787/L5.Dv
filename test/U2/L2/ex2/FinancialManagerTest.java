@@ -1,8 +1,8 @@
-package U2.L1.L2.ex2;
+package U2.L2.ex2;
 
-import U2.L1.L2.ex2.controller.DBHelper;
-import U2.L1.L2.ex2.controller.GUI;
-import U2.L1.L2.ex2.model.FinancialManager;
+import U2.L2.ex2.controller.DBHelper;
+import U2.L2.ex2.controller.GUI;
+import U2.L2.ex2.model.FinancialManager;
 import org.junit.*;
 
 import static org.junit.Assert.*;

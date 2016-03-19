@@ -1,9 +1,10 @@
-package U2.L1.L2.ex2.model.datasets;
+package U2.L2.ex2.model.datasets;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
@@ -45,13 +46,15 @@ public class UserTest {
 
     @Test
     public void getAccounts() throws Exception {
-        user.setAccounts(Arrays.asList(new Account("description", 45.8), new Account("general account", 458.45)));
+        user.setAccounts(new HashSet<>(Arrays.asList(new Account("description", 45.8),
+                new Account("general account", 458.45))));
         assertNotNull(user.getAccounts());
     }
 
     @Test
     public void setAccounts() throws Exception {
-        user.setAccounts(Arrays.asList(new Account("description", 45.8), new Account("general account", 458.45)));
+        user.setAccounts(new HashSet<>(Arrays.asList(new Account("description", 45.8),
+                new Account("general account", 458.45))));
         assertNotNull(user.getAccounts());
     }
 }

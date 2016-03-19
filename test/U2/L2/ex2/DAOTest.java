@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2;
+package U2.L2.ex2;
 
 import org.junit.Before;
 import org.junit.Test;

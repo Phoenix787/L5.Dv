@@ -1,4 +1,4 @@
-package U2.L1.L2.ex2.model.datasets;
+package U2.L2.ex2.model.datasets;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class AccountTest {
     @Before
     public void setUp(){
         account = new Account("General account", 458.78);
-        record = new Record(1, new Date(), 4.8, "buy juice");
+        record = new Record(1, new Date(), new Category("Post"), Type.EXPAND, 4.8, "buy juice");
     }
 
     @Test
