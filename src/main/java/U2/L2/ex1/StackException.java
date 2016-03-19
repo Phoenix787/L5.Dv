@@ -1,4 +1,4 @@
-package U2.L1.L2.ex1;
+package U2.L2.ex1;
 
 /**
  * Created by Ксения on 16.03.2016.
