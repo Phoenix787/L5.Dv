@@ -17,7 +17,7 @@ public class RadioButtonFrame extends JFrame {
     private JLabel label;
     private static final int DEFAULT_SIZE = 36;
 
-    public RadioButtonFrame(){
+    RadioButtonFrame(){
         label = new JLabel("This is sample text!");
         label.setFont(new Font("SanSerif", Font.PLAIN, DEFAULT_SIZE));
         add(label, BorderLayout.CENTER);
@@ -40,14 +40,18 @@ public class RadioButtonFrame extends JFrame {
         buttonGroup.add(radioButton);
         buttonPanel.add(radioButton);
 
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                label.setFont(new Font("SanSerif", Font.PLAIN, i));
-            }
-        };
+//        ActionListener listener = new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                label.setFont(new Font("SanSerif", Font.PLAIN, i));
+//            }
+//        };
 
-        radioButton.addActionListener(listener);
+        //radioButton.addActionListener(listener);
+
+        radioButton.addActionListener(
+                (e)->label.setFont(new Font("SanSerif", Font.PLAIN, i))
+        );
     }
 
 
