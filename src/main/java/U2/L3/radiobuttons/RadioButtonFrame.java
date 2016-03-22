@@ -1,6 +1,7 @@
 package U2.L3.radiobuttons;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,9 @@ public class RadioButtonFrame extends JFrame {
         add(label, BorderLayout.CENTER);
 
         buttonPanel = new JPanel();
+        Border border = BorderFactory.createEtchedBorder();
+        Border titled = BorderFactory.createTitledBorder(border, "Radio button Group");
+        buttonPanel.setBorder(titled);
         buttonGroup = new ButtonGroup();
 
         addRadioButton("Small", 8);
