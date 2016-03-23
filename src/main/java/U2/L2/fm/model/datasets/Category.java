@@ -5,10 +5,13 @@ package U2.L2.fm.model.datasets;
  *
  */
 class Category {
+    private long id;
     private String nameCategory;
 
     public Category(String nameCategory) {
+
         this.nameCategory = nameCategory;
+        this.id = -1;
     }
 
     public Category() {
@@ -20,5 +23,13 @@ class Category {
 
     public void setNameCategory(String nameCategory) {
         this.nameCategory = nameCategory;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -5,6 +5,8 @@ import U2.L2.fm.model.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Set;
+
 /**
  * Created by Сергеева on 18.03.2016.
  *
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class FinancialManager {
 
     private DBHelper dbHelper;
+    private String owner;
     private final Logger logger = LoggerFactory.getLogger(FinancialManager.class.getName());
 
     public FinancialManager(DBHelper dbHelper) {
@@ -30,7 +33,6 @@ public class FinancialManager {
 
     }
 
-
     public boolean signUp(String name, String password) {
         User user = dbHelper.getUser(name);
         if (user != null){
@@ -40,7 +42,16 @@ public class FinancialManager {
         }
 
         dbHelper.addUser(new User(name, new String(PasswordHelper.getInstance().getSha256Hash(password))));
+        owner = name;
         logger.info("New User with login: {} and password: {} have added. ", name, password);
         return true;
+    }
+
+    public Set<String> getUserNames() {
+        return dbHelper.getUserNames();
+    }
+
+    public String getOwner(){
+        return owner;
     }
 }

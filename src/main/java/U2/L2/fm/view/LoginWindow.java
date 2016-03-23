@@ -20,12 +20,7 @@ public class LoginWindow extends JFrame {
 
     private JTextField tfUsername;
     private JPasswordField pfPassword;
-    private JLabel lbRegister;
-    private JLabel lbUsername;
-    private JLabel lbPassword;
 
-    private JButton btnLogin;
-    private JButton btnCancel;
     private boolean succeeded;
 
 
@@ -39,7 +34,7 @@ public class LoginWindow extends JFrame {
         GridBagConstraints cs = new GridBagConstraints();
         cs.insets = new Insets(2,2,2,2); //установка external padding
         cs.fill = GridBagConstraints.HORIZONTAL;
-        lbUsername = new JLabel("Username: ");
+        JLabel lbUsername = new JLabel("Username: ");
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
@@ -51,7 +46,7 @@ public class LoginWindow extends JFrame {
         cs.gridwidth = 2;
         panel.add(tfUsername, cs);
 
-        lbPassword = new JLabel("Password: ");
+        JLabel lbPassword = new JLabel("Password: ");
         cs.gridx = 0;
         cs.gridy = 1;
         cs.gridwidth = 1;
@@ -63,16 +58,16 @@ public class LoginWindow extends JFrame {
         cs.gridwidth = 2;
         panel.add(pfPassword, cs);
 
-        lbRegister = new JLabel("Register", JLabel.RIGHT);
+        JLabel lbRegister = new JLabel("Register", JLabel.RIGHT);
         lbRegister.setFont(new Font(Font.SANS_SERIF, FontUIResource.BOLD, 12));
         lbRegister.setForeground(Color.blue);
         lbRegister.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // TODO: 23.03.2016 написать открытие формы Регистрация
                 SwingUtilities.invokeLater(() -> new RegistrationWindow(controller).setVisible(true));
-                System.out.println("Регистрация");
-                //подключаем логгера
+
+                // TODO: 23.03.2016  подключаем логгера
+
             }
         });
         cs.gridx = 1;
@@ -80,7 +75,7 @@ public class LoginWindow extends JFrame {
         cs.gridwidth = 2;
         panel.add(lbRegister, cs);
 
-        btnLogin = new JButton("Login");
+        JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
             if (controller.authenticate(getUserName(), getPassword())){
                 JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
@@ -99,7 +94,7 @@ public class LoginWindow extends JFrame {
             }
 
         });
-        btnCancel = new JButton("Cancel");
+        JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(e -> dispose());
 
         JPanel btnPanel = new JPanel();

@@ -1,8 +1,11 @@
 package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
+import U2.L2.fm.model.datasets.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Set;
 
 /**
  * Created by Ксения on 19.03.2016.
@@ -30,6 +33,19 @@ public class LoginWindowController implements GUI{
     public boolean register(String username, String password) {
 
         return fm.signUp(username, password);
+    }
+
+    public Set<String> getNames() {
+        return fm.getUserNames();
+    }
+
+    public Set<Account> getAccounts(){
+        return null;
+    }
+
+    @Override
+    public String getOwner(){
+        return fm.getOwner();
     }
 
 }

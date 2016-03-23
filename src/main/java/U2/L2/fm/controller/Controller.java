@@ -3,6 +3,8 @@ package U2.L2.fm.controller;
 import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.view.LoginWindow;
 
+import java.util.Set;
+
 /**
  * Created by Ксения on 23.03.2016.
  */
@@ -27,5 +29,10 @@ public class Controller implements GUI {
     @Override
     public boolean register(String username, String password) {
         return false;
+    }
+
+    @Override
+    public Set<String> getNames() {
+        return null;
     }
 }

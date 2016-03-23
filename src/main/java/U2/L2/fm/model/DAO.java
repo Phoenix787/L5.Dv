@@ -56,6 +56,19 @@ public class DAO implements DataStore {
 
     @Override
     public Set<Account> getAccounts(User owner) {
+        try{
+            return executor.execQuery("Select * from accounts where id_user = '" + owner.getId() +"';", resultSet -> {
+                Set<Account> result = new HashSet<>();
+                while (resultSet.next()) {
+                    result.add(new Account(resultSet.getInt("id"), resultSet.getString("description"), resultSet.getDouble("amount")));
+                }
+                return result;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         return null;
     }
 
@@ -124,6 +137,16 @@ public class DAO implements DataStore {
     public void createTable() {
         try {
             executor.execUpdate("create table if not exists users (id bigint auto_increment primary key, name varchar(256), password varchar(256))");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void createTables() {
+        try {
+            executor.execUpdate("create table if not exists users (id bigint auto_increment primary key, name varchar(256), password varchar(256));" +
+                    "create table if not exists accounts(id bigint auto_increment  primary key, description varchar(256), amount double, id_user bigint, id_record bigint);" +
+                    "create table if not exists records(id bigint auto_increment primary key, description varchar(256), amount double, date_rec date, id_category bigint, type boolean, id_account bigint);" +
+                    "create table if not exists category(id bigint auto_increment primary key, name varchar(256));");
         } catch (SQLException e) {
             e.printStackTrace();
         }

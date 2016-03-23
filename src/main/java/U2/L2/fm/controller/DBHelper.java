@@ -1,7 +1,9 @@
 package U2.L2.fm.controller;
 
 import U2.L2.fm.model.DAO;
+import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.DataStore;
+import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.datasets.User;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
@@ -78,7 +80,7 @@ public class DBHelper {
 
     public void createTable(){
         DAO dao = new DAO(conn);
-        dao.createTable();
+        dao.createTables();
 
     }
 
@@ -87,6 +89,30 @@ public class DBHelper {
         User user = dao.getUser(name);
         return dao.removeUser(user);
     }
+
+    //if no accounts return empty collection (not null)
+    public Set<Account> getAccounts(User owner){
+        return  null;
+    }
+
+    //if no accounts return empty collection (not null)
+    public Set<Record> getRecords(Account account){
+        return null;
+    }
+    public void addAccount(User user, Account account){}
+
+    public void addRecord(Account account, Record record){}
+
+    public Account removeAccount(User owner, Account account){return null;}
+
+    //return removed Record or null
+    Record removeRecord(Account account, Record record){return null;}
+
+
+
+
+
+
 
     private static void closeResource(AutoCloseable res) {
         try {

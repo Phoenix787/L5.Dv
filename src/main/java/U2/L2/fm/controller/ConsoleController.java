@@ -4,6 +4,8 @@ import U2.L2.fm.model.FinancialManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Set;
+
 /**
  * Created by Ксения on 18.03.2016.
  *
@@ -29,6 +31,11 @@ public class ConsoleController implements GUI {
     @Override
     public boolean register(String username, String password) {
         return fm.signUp(username, password);
+    }
+
+    @Override
+    public Set<String> getNames() {
+        return null;
     }
 
 

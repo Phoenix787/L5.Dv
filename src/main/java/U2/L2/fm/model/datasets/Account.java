@@ -28,6 +28,13 @@ public class Account {
         this.records = new ArrayList<>();
     }
 
+    public Account(long id, String description, double amount) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.records = new ArrayList<>();
+    }
+
     public String getDescription() {
         return description;
     }
