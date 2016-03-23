@@ -69,6 +69,7 @@ public class RegisterFrame extends JFrame {
         btnRegister.addActionListener(e -> {
             if (!LoginController.authenticate(getUsername(), getPassword())){
                 //вызов метода RegisterController.register после проверки что такого пользователя нет
+                //может общий контроллер для этих двух форм написать
             } else{
                 JOptionPane.showMessageDialog(RegisterFrame.this, "User with such name is existed. " +
                         "\nChoose new username or login", "Register", JOptionPane.ERROR_MESSAGE);
