@@ -6,6 +6,7 @@ package U2.L3.loginwindow;
  */
 public class LoginController {
     //подключить модель финансового менеджера
+    //сюда можно попробовать подключить контроллер
 
 
     public static boolean authenticate(String name, String password) {

@@ -1,5 +1,7 @@
 package U2.L3.registerWindow;
 
+import U2.L3.loginwindow.LoginController;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -65,7 +67,12 @@ public class RegisterFrame extends JFrame {
 
         JButton btnRegister = new JButton("Submit");
         btnRegister.addActionListener(e -> {
-            //вызов метода RegisterController.register после проверки что такого пользователя нет
+            if (!LoginController.authenticate(getUsername(), getPassword())){
+                //вызов метода RegisterController.register после проверки что такого пользователя нет
+            } else{
+                JOptionPane.showMessageDialog(RegisterFrame.this, "User with such name is existed. " +
+                        "\nChoose new username or login", "Register", JOptionPane.ERROR_MESSAGE);
+            }
 
         });
         JButton btnCancel = new JButton("Cancel");
