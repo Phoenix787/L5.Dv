@@ -1,5 +1,7 @@
 package U2.L3.loginwindow;
 
+import U2.L3.registerWindow.RegisterFrame;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +12,7 @@ import java.awt.event.*;
 
 /**
  * Created by Сергеева on 23.03.2016.
+ * ***
  */
 public class LoginFrame extends JFrame {
 
@@ -34,13 +37,11 @@ public class LoginFrame extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new CompoundBorder(new EmptyBorder(5,5,5,5), new EtchedBorder()));
         GridBagConstraints cs = new GridBagConstraints();
-        cs.insets = new Insets(2,2,2,2);
+        cs.insets = new Insets(2,2,2,2); //установка external padding
         cs.fill = GridBagConstraints.HORIZONTAL;
         lbUsername = new JLabel("Username: ");
         cs.gridx = 0;
         cs.gridy = 0;
-        cs.ipadx = 5;
-        cs.ipady = 5;
         cs.gridwidth = 1;
         panel.add(lbUsername, cs);
 
@@ -69,7 +70,9 @@ public class LoginFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // TODO: 23.03.2016 написать открытие формы Регистрация
+                SwingUtilities.invokeLater(() -> new RegisterFrame().setVisible(true));
                 System.out.println("Регистрация");
+                //подключаем логгера
             }
         });
         cs.gridx = 1;

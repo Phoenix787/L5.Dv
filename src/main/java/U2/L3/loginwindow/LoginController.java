@@ -2,6 +2,7 @@ package U2.L3.loginwindow;
 
 /**
  * Created by Сергеева on 23.03.2016.
+ * +++
  */
 public class LoginController {
     //подключить модель финансового менеджера
