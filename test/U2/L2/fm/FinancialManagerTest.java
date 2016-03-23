@@ -21,7 +21,7 @@ public class FinancialManagerTest {
     @BeforeClass
     public static void setUp() throws Exception {
         dbHelper = DBHelper.getInstance();
-        fm = new FinancialManager(dbHelper, controller);
+        fm = new FinancialManager(dbHelper);
 
     }
 

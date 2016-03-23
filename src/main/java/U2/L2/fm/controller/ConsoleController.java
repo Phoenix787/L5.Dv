@@ -1,7 +1,6 @@
 package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
-import U2.L2.fm.view.ConsoleView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,25 +10,25 @@ import org.slf4j.LoggerFactory;
  */
 public class ConsoleController implements GUI {
     private final Logger logger = LoggerFactory.getLogger(FinancialManager.class.getName());
-    private ConsoleView view;
+    private FinancialManager fm;
 
 
-    public ConsoleController() {
-        view = new ConsoleView();
+
+    public ConsoleController(FinancialManager fm) {
+        this.fm = fm;
+
+    }
+
+
+    @Override
+    public boolean authenticate(String username, String password) {
+
+        return fm.signIn(username, password);
     }
 
     @Override
-    public void show() {
-        view.show();
-    }
-
-    public String getUserInput(){
-        return view.getMessage();
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        view.sendMessage(message);
+    public boolean register(String username, String password) {
+        return fm.signUp(username, password);
     }
 
 

@@ -1,6 +1,5 @@
 package U2.L2.fm.model;
 import U2.L2.fm.controller.DBHelper;
-import U2.L2.fm.controller.GUI;
 import U2.L2.fm.model.datasets.User;
 import U2.L2.fm.model.util.PasswordHelper;
 import org.slf4j.Logger;
@@ -14,45 +13,11 @@ public class FinancialManager {
 
     private DBHelper dbHelper;
     private final Logger logger = LoggerFactory.getLogger(FinancialManager.class.getName());
-    private GUI controller;
 
-    public FinancialManager(DBHelper dbHelper, GUI controller) {
+    public FinancialManager(DBHelper dbHelper) {
         this.dbHelper = dbHelper;
-        this.controller = controller;
         dbHelper.createTable();
     }
-
-    public void start(){
-        controller.show();
-        int i = Integer.valueOf(controller.getUserInput());
-        switch (i){
-            case 1: { //авторизоваться
-                controller.sendMessage("Введите логин: ");
-                String login = controller.getUserInput();
-                controller.sendMessage("Введите пароль: ");
-                String password = controller.getUserInput();
-                if (signIn(login, password)) {
-                    controller.sendMessage("Авторизация прошла успешно!");
-                } else {
-                    controller.sendMessage("Неверный логин/пароль");
-                }
-            }
-            break;
-            case 2: {
-                controller.sendMessage("Введите логин: ");
-                String login = controller.getUserInput();
-                controller.sendMessage("Введите пароль: ");
-                String password = controller.getUserInput();
-                if (!signUp(login, password)) {
-                    controller.sendMessage("Пользователь с таким логином уже существует.");
-                } else
-                controller.sendMessage("Вы успешно зарегистрировались!");
-            }
-            break;
-
-        }
-    }
-
 
     public boolean signIn(String login, String password){
         User user = dbHelper.getUser(login);

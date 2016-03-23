@@ -4,11 +4,9 @@ package U2.L2.fm.controller;
  * Created by Ксения on 18.03.2016.
  */
 public interface GUI {
-    void show();
+    boolean authenticate(String username, String password);
 
-    String getUserInput();
-
-    void sendMessage(String message);
+    boolean register(String username, String password);
 
 
 }
