@@ -35,4 +35,9 @@ public class Controller implements GUI {
     public Set<String> getNames() {
         return null;
     }
+
+    @Override
+    public String getOwner() {
+        return null;
+    }
 }

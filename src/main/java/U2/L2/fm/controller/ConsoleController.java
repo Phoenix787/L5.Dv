@@ -38,5 +38,10 @@ public class ConsoleController implements GUI {
         return null;
     }
 
+    @Override
+    public String getOwner() {
+        return null;
+    }
+
 
 }
