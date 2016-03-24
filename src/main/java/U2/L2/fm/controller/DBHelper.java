@@ -87,6 +87,7 @@ public class DBHelper {
     public User removeUser(String name){
         DAO dao = new DAO(conn);
         User user = dao.getUser(name);
+        //прежде чем удалить пользователя нужно удалить все счета с ним связанные
         return dao.removeUser(user);
     }
 
@@ -108,12 +109,18 @@ public class DBHelper {
     }
 
     public Account getAccount(String description){
-        return null;
+        DAO dao = new DAO(conn);
+        return dao.getAccount(description);
     }
 
     public void addRecord(Account account, Record record){}
 
-    public Account removeAccount(User owner, Account account){return null;}
+    public Account removeAccount(String name, String description){
+        DAO dao = new DAO(conn);
+        return dao.removeAccount(getUser(name), getAccount(description));
+        // TODO: 24.03.2016 когда мы удаляем счет нам нужно удалить и все транзакции по этому счету
+        //нужно получить все рекорды с id_account и удалить их сначала, а потом удалить сам счет
+    }
 
     //return removed Record or null
     Record removeRecord(Account account, Record record){return null;}

@@ -1,14 +1,14 @@
 package U2.L2.fm.view;
 
 import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.DatabaseListModel;
+import U2.L2.fm.model.datasets.Account;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Сергеева on 24.03.2016.
@@ -18,11 +18,12 @@ public class AccountForm extends JFrame {
     private final GUI controller;
     private  JTextField tfDescription;
     private  JTextField tfAmount;
+    MainWindow parent;
 
 
-    public AccountForm(GUI controller) {
+    public AccountForm(GUI controller, MainWindow parent) {
         this.controller = controller;
-
+        this.parent = parent;
 
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -70,7 +71,14 @@ public class AccountForm extends JFrame {
                 JOptionPane.showMessageDialog(AccountForm.this, "New account to " + controller.getOwner() +
                         " is added.", "New Account", JOptionPane.INFORMATION_MESSAGE);
                 succeeded = true;
-                // TODO: 24.03.2016 после закрытия формы обновить данные на MainWindow
+                //после закрытия формы обновить данные на MainWindow
+                Set<String> data = updateListAccount();
+                DatabaseListModel<String> stringDatabaseListModel = new DatabaseListModel<>();
+                stringDatabaseListModel.setDataSource(data);
+                parent.setDim(stringDatabaseListModel);
+                parent.updateJList();
+
+
                 dispose();
 
 
@@ -111,6 +119,19 @@ public class AccountForm extends JFrame {
     }
 
     // TODO: 24.03.2016 добавить кнопку Add record...
+    // TODO: 24.03.2016 добавить кнопку Delete account...
+
+
+    public Set<String> updateListAccount() {
+        Set<Account> temp = controller.getAccounts(controller.getOwner());
+        Set<String> result = new HashSet<>();
+        for (Account account : temp) {
+            result.add(account.getDescription());
+        }
+
+        return result;
+    }
+
 
 
 }

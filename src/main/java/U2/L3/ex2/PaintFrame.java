@@ -18,11 +18,14 @@ public class PaintFrame extends JFrame {
 
     private static final long serialVersionUID = 5282566357923102964L;
 
-    private List<Line2D.Float> lines = new ArrayList<>();
+//    private List<Line2D.Float> lines = new ArrayList<>();
+    private List<Line2DColor> lines = new ArrayList<>();
     //последняя точка, которую пользователь ввел (постоянно будем ее обнулять)
     private Point lastPoint;
     private DrawPanel panel;
-    private Color color;
+    private Color color = Color.BLACK;
+
+    //private List<Color> listColor = new ArrayList<>();
 
     public PaintFrame() {
         super("Super color paint");
@@ -54,6 +57,25 @@ public class PaintFrame extends JFrame {
         });
     }
 
+    private class Line2DColor extends Line2D.Float{
+        private static final long serialVersionUID = 2953167204358356996L;
+
+        private Color color;
+
+        public Line2DColor(Point lastPoint, Point currentPoint, Color color) {
+            super(lastPoint, currentPoint);
+            this.color = color;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+
+        public void setColor(Color color) {
+            this.color = color;
+        }
+    }
+
     private class DrawPanel extends JPanel {
 
         private static final long serialVersionUID = 2085516060806112949L;
@@ -63,8 +85,12 @@ public class PaintFrame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g); //как канваз на котором мы рисуем
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(color);
-            for (Line2D.Float line : lines ) {
+//            g2d.setColor(color);
+//            for (Line2D.Float line : lines ) {
+//                g2d.draw(line);
+//            }
+            for (Line2DColor line : lines) {
+                g2d.setColor(line.getColor());
                 g2d.draw(line);
             }
         }
@@ -131,8 +157,10 @@ public class PaintFrame extends JFrame {
                 lastPoint = currentPoint;
                 return;
             }
-            lines.add(new Line2D.Float(lastPoint, currentPoint));
+            lines.add(new Line2DColor(lastPoint, currentPoint, color));
+
             lastPoint = currentPoint;
+
             panel.repaint();
         }
 

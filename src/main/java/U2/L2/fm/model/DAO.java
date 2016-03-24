@@ -72,6 +72,19 @@ public class DAO implements DataStore {
         return null;
     }
 
+    public Account getAccount(String description){
+           try {
+                return executor.execQuery("Select * from accounts where description = '" + description + "';", resultSet -> {
+                    resultSet.next();
+                    return new Account(resultSet.getInt("id"), resultSet.getString("description"), resultSet.getDouble("amount"));
+                });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return null;
+
+    }
+
     @Override
     public Set<Record> getRecords(Account account) {
         return null;
@@ -126,6 +139,13 @@ public class DAO implements DataStore {
 
     @Override
     public Account removeAccount(User owner, Account account) {
+        try{
+            executor.execUpdate("delete from accounts where id_user = '" + owner.getId() + "' and id = '" + account.getId() + "'");
+            return account;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -151,4 +171,6 @@ public class DAO implements DataStore {
             e.printStackTrace();
         }
     }
+
+
 }
