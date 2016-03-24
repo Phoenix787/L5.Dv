@@ -25,10 +25,18 @@ public class LoginWindow extends JFrame {
 
 
     public LoginWindow(GUI controller){
+//        Toolkit kit = Toolkit.getDefaultToolkit();
+//        Dimension screenSize = kit.getScreenSize();
+//        int screenWith = screenSize.width;
+//        int screenHeight = screenSize.height;
+//        setSize(screenWith / 2, screenHeight / 2);
+//        setLocation(screenWith/2 - this.getWidth()/2, screenHeight/2 - this.getHeight() / 2);
+        setLocationRelativeTo(null);
 
         setTitle("Login");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+       // setLocationByPlatform(true);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new CompoundBorder(new EmptyBorder(5,5,5,5), new EtchedBorder()));
         GridBagConstraints cs = new GridBagConstraints();
@@ -81,8 +89,7 @@ public class LoginWindow extends JFrame {
                 JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
                         "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
                 succeeded = true;
-                // TODO: 23.03.2016 сделать чтобы форма открывалась посередине рабочего стола
-                // TODO: 23.03.2016  сделать открытие главного окна финансового менеджера
+                new MainWindow(controller).start();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",

@@ -1,6 +1,7 @@
 package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
+import U2.L2.fm.model.datasets.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,21 @@ public class ConsoleController implements GUI {
     @Override
     public String getOwner() {
         return null;
+    }
+
+    @Override
+    public boolean addAccount(String username, String accountDesc, double amount) {
+        return false;
+    }
+
+    @Override
+    public Set<Account> getAccounts(String owner) {
+        return null;
+    }
+
+    @Override
+    public String[] updateListAccount() {
+        return new String[0];
     }
 
 

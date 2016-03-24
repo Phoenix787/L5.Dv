@@ -16,7 +16,14 @@ public class RegistrationWindow extends JFrame {
 
     public RegistrationWindow(GUI controller) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(400, 200);
+        setLocationRelativeTo(null);
+//        Toolkit kit = Toolkit.getDefaultToolkit();
+//        Dimension screenSize = kit.getScreenSize();
+//        int screenWith = screenSize.width;
+//        int screenHeight = screenSize.height;
+//        setSize(screenWith / 2, screenHeight / 2);
+//        setLocation(screenWith/2 - this.getWidth()/2, screenHeight/2 - this.getHeight() / 2);
+
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new EtchedBorder());
         GridBagConstraints cs = new GridBagConstraints();
@@ -86,6 +93,7 @@ public class RegistrationWindow extends JFrame {
 
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(btnPanel, BorderLayout.PAGE_END);
+        pack();
     }
 
     private String getUsername() {

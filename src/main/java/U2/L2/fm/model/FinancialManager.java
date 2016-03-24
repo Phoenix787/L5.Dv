@@ -1,10 +1,12 @@
 package U2.L2.fm.model;
 import U2.L2.fm.controller.DBHelper;
+import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.User;
 import U2.L2.fm.model.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -27,6 +29,7 @@ public class FinancialManager {
 
         if (user != null && new String(PasswordHelper.getInstance().getSha256Hash(password)).equals(user.getPassword())){
             logger.info("User {} is entered.", login);
+            owner = login;
             return true;
         }
         return false;
@@ -37,7 +40,7 @@ public class FinancialManager {
         User user = dbHelper.getUser(name);
         if (user != null){
             logger.info("User with such login exists. {} rejected to Login form", name);
-            System.out.println("User with such login exists. Please choose other login or sign in with your login/password.");
+            //System.out.println("User with such login exists. Please choose other login or sign in with your login/password.");
             return false;
         }
 
@@ -53,5 +56,24 @@ public class FinancialManager {
 
     public String getOwner(){
         return owner;
+    }
+
+    public boolean addAccount(String username, String accountDesc, double amount){
+        User user = dbHelper.getUser(username);
+        if (user != null) {
+            logger.info("Added new account to user: {}", username);
+            dbHelper.addAccount(user, new Account(accountDesc, amount));
+            return true;
+        }
+        return false;
+    }
+
+
+    public Set<Account> getAccounts(String owner){
+        User user = dbHelper.getUser(owner);
+        if (user != null) {
+            return dbHelper.getAccounts(user);
+        }
+        return new HashSet<>();
     }
 }

@@ -48,4 +48,25 @@ public class LoginWindowController implements GUI{
         return fm.getOwner();
     }
 
+    @Override
+    public boolean addAccount(String username, String accountDesc, double amount) {
+        return fm.addAccount(username, accountDesc, amount);
+    }
+
+    @Override
+    public Set<Account> getAccounts(String owner) {
+        return fm.getAccounts(owner);
+    }
+
+    public String[] updateListAccount() {
+        Set<Account> temp = getAccounts(getOwner());
+        Account[] data = temp.toArray(new Account[temp.size()]);
+        String[] strData = new String[temp.size()];
+        for (int i = 0; i < strData.length; i++) {
+            strData[i] = data[i].getDescription();
+        }
+        return strData;
+    }
+
+
 }

@@ -1,36 +1,6 @@
-03-18 19:35:16 jdbc[3]: exception
+03-24 09:41:19 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Нет данных
 No data is available [2000-187]
-03-18 19:36:06 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-18 21:22:50 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-18 21:23:49 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-18 21:25:37 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-18 21:28:49 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-18 23:03:39 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-23 20:59:36 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-23 20:59:43 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-23 20:59:54 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-23 21:01:29 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Нет данных
-No data is available [2000-187]
-03-23 21:01:29 jdbc[3]: exception
+03-24 09:41:19 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Нет данных
 No data is available [2000-187]

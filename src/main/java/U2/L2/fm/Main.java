@@ -4,6 +4,8 @@ import U2.L2.fm.controller.DBHelper;
 import U2.L2.fm.controller.GUI;
 import U2.L2.fm.controller.LoginWindowController;
 import U2.L2.fm.model.FinancialManager;
+import U2.L2.fm.view.AccountForm;
+import U2.L2.fm.view.LoginWindow;
 import U2.L2.fm.view.MainWindow;
 
 /**
@@ -14,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) {
         GUI controller = new LoginWindowController(new FinancialManager(DBHelper.getInstance()));
-        MainWindow view = new MainWindow(controller);
+        LoginWindow view = new LoginWindow(controller);
+        //AccountForm view = new AccountForm(controller);
         view.start();
 
     }

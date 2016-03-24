@@ -92,14 +92,24 @@ public class DBHelper {
 
     //if no accounts return empty collection (not null)
     public Set<Account> getAccounts(User owner){
-        return  null;
+        DAO dao = new DAO(conn);
+        return  dao.getAccounts(owner);
     }
 
     //if no accounts return empty collection (not null)
     public Set<Record> getRecords(Account account){
         return null;
     }
-    public void addAccount(User user, Account account){}
+
+
+    public void addAccount(User user, Account account){
+        DAO dao = new DAO(conn);
+        dao.addAccount(user, account);
+    }
+
+    public Account getAccount(String description){
+        return null;
+    }
 
     public void addRecord(Account account, Record record){}
 
