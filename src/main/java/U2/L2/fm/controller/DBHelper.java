@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -87,7 +88,13 @@ public class DBHelper {
     public User removeUser(String name){
         DAO dao = new DAO(conn);
         User user = dao.getUser(name);
+        Set<Account> accounts = getAccounts(user);
+        Iterator<Account> iterator = accounts.iterator();
         //прежде чем удалить пользователя нужно удалить все счета с ним связанные
+        while (iterator.hasNext()){
+            dao.removeAccount(user, iterator.next());
+        }
+
         return dao.removeUser(user);
     }
 

@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Created by Сергеева on 24.03.2016.
  */
-public class AccountForm extends JFrame {
+public class AccountForm extends JDialog {
     private boolean succeeded;
     private final GUI controller;
     private  JTextField tfDescription;
@@ -28,6 +28,9 @@ public class AccountForm extends JFrame {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setModal(true);
+        setResizable(false);
+
 
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new EtchedBorder());

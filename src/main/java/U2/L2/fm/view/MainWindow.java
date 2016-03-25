@@ -3,6 +3,7 @@ package U2.L2.fm.view;
 import U2.L2.fm.controller.GUI;
 import U2.L2.fm.model.DatabaseListModel;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.util.ExitAction;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class MainWindow extends JFrame {
         this.controller = controller;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Financial Manager: " + controller.getOwner());
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
@@ -46,6 +48,8 @@ public class MainWindow extends JFrame {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(5, 5, 5, 5);
 
+        createMainMenu();
+
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new EtchedBorder());
 
@@ -58,7 +62,8 @@ public class MainWindow extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.weighty = 2;
-        panel.add(jList, constraints);
+//        panel.add(jList, constraints);
+        panel.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), constraints);
 
         JPanel btnPanel = new JPanel();
 
@@ -105,6 +110,47 @@ public class MainWindow extends JFrame {
         }
 
         return result;
+    }
+
+    // TODO: 25.03.2016 make mainMenu createMainManu()
+
+    private void createMainMenu(){
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(createFileMenu());
+        menuBar.add(createEditMenu());
+        setJMenuBar(menuBar);
+    }
+
+
+
+    private JMenu createFileMenu(){
+        JMenu file = new JMenu("File");
+        JMenuItem changeUser = new JMenuItem("Сменить пользователя", new ImageIcon("img/open.gif"));
+        JMenuItem exit = new JMenuItem(new ExitAction());
+        file.add(changeUser);
+        file.addSeparator();
+        file.add(exit);
+        return file;
+    }
+
+    private JMenu createEditMenu() {
+        JMenu edit = new JMenu("Edit");
+        JCheckBoxMenuItem bold = new JCheckBoxMenuItem("Bold");
+        JCheckBoxMenuItem italic = new JCheckBoxMenuItem("Italic");
+        JCheckBoxMenuItem underline = new JCheckBoxMenuItem("Underline");
+
+        JRadioButtonMenuItem male = new JRadioButtonMenuItem("Man");
+        JRadioButtonMenuItem female = new JRadioButtonMenuItem("Female");
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(male);
+        bg.add(female);
+        edit.add(bold);
+        edit.add(italic);
+        edit.add(underline);
+        edit.add(male);
+        edit.add(female);
+
+        return edit;
     }
 
 }

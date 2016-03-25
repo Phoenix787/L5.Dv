@@ -8,8 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * Created by Ксения on 19.03.2016.
@@ -37,6 +36,12 @@ public class LoginWindow extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
        // setLocationByPlatform(true);
+        JPanel headerPanel = new JPanel();
+        JLabel lbHeader = new JLabel("Financial Manager");
+        lbHeader.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        headerPanel.add(lbHeader);
+
+
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(new CompoundBorder(new EmptyBorder(5,5,5,5), new EtchedBorder()));
         GridBagConstraints cs = new GridBagConstraints();
@@ -85,20 +90,7 @@ public class LoginWindow extends JFrame {
 
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
-            if (controller.authenticate(getUserName(), getPassword())){
-                JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
-                        "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
-                succeeded = true;
-                new MainWindow(controller).start();
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",
-                        JOptionPane.ERROR_MESSAGE);
-                tfUsername.setText("");
-                pfPassword.setText("");
-                succeeded = false;
-
-            }
+            onOk(controller);
 
         });
         JButton btnCancel = new JButton("Cancel");
@@ -108,12 +100,37 @@ public class LoginWindow extends JFrame {
         btnPanel.add(btnLogin);
         btnPanel.add(btnCancel);
 
+        getContentPane().add(headerPanel, BorderLayout.PAGE_START);
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(btnPanel, BorderLayout.PAGE_END);
+        btnPanel.registerKeyboardAction(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onOk(controller);
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
         setResizable(false);
         pack();
 
     }
+
+    private void onOk(GUI controller) {
+        if (controller.authenticate(getUserName(), getPassword())){
+            JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
+                    "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
+            succeeded = true;
+            new MainWindow(controller).start();
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",
+                    JOptionPane.ERROR_MESSAGE);
+            tfUsername.setText("");
+            pfPassword.setText("");
+            succeeded = false;
+
+        }
+    }
+
     public void start(){
         setVisible(true);
     }
