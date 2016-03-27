@@ -2,6 +2,7 @@ package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.interfaces.GUI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

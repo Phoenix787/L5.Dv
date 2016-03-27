@@ -1,10 +1,8 @@
 package U2.L2.fm.controller;
 
 import U2.L2.fm.model.DAO;
-import U2.L2.fm.model.datasets.Account;
-import U2.L2.fm.model.datasets.DataStore;
-import U2.L2.fm.model.datasets.Record;
-import U2.L2.fm.model.datasets.User;
+import U2.L2.fm.model.datasets.*;
+import U2.L2.fm.model.interfaces.DataStore;
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,7 +104,12 @@ public class DBHelper {
 
     //if no accounts return empty collection (not null)
     public Set<Record> getRecords(Account account){
-        return null;
+        DAO dao = new DAO(conn);
+        return dao.getRecords(account);
+    }
+
+    public Category getCategory(String nameCategory){
+        return new DAO(conn).getCategoryByName(nameCategory);
     }
 
 
@@ -120,22 +123,32 @@ public class DBHelper {
         return dao.getAccount(description);
     }
 
-    public void addRecord(Account account, Record record){}
+
+
+    public void addRecord(Account account, Record record){
+        DAO dao = new DAO(conn);
+        dao.addRecord(account, record);
+    }
+
+
 
     public Account removeAccount(String name, String description){
         DAO dao = new DAO(conn);
-        return dao.removeAccount(getUser(name), getAccount(description));
-        // TODO: 24.03.2016 когда мы удаляем счет нам нужно удалить и все транзакции по этому счету
-        //нужно получить все рекорды с id_account и удалить их сначала, а потом удалить сам счет
+        Account account = getAccount(description);
+        Set<Record> records = getRecords(account);
+        Iterator<Record> iterator = records.iterator();
+        while (iterator.hasNext()) {
+            removeRecord(account, iterator.next());
+        }
+        return dao.removeAccount(getUser(name), account);
+
     }
 
     //return removed Record or null
-    Record removeRecord(Account account, Record record){return null;}
-
-
-
-
-
+    Record removeRecord(Account account, Record record){
+        DAO dao = new DAO(conn);
+        return dao.removeRecord(account, record);
+    }
 
 
     private static void closeResource(AutoCloseable res) {

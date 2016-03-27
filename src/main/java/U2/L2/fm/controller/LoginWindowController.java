@@ -1,6 +1,7 @@
 package U2.L2.fm.controller;
 
-import U2.L2.fm.model.FinancialManager;
+import U2.L2.fm.model.interfaces.GUI;
+import U2.L2.fm.model.interfaces.Manageable;
 import U2.L2.fm.model.datasets.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,13 @@ import java.util.Set;
  *
  * добавить как-то получение данных из базы данных для доступа к приложению
  */
-public class LoginWindowController implements GUI{
+public class LoginWindowController implements GUI {
 
     private final Logger logger = LoggerFactory.getLogger(LoginWindowController.class.getName());
-    private FinancialManager fm;
+    private Manageable fm;
 
 
-    public LoginWindowController(FinancialManager fm) {
+    public LoginWindowController(Manageable fm) {
         this.fm = fm;
     }
 

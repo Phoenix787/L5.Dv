@@ -1,7 +1,7 @@
 package U2.L2.fm;
 
 import U2.L2.fm.controller.DBHelper;
-import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.FinancialManager;
 import org.junit.*;
 

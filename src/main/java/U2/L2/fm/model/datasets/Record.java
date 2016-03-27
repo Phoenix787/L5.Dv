@@ -1,18 +1,45 @@
 package U2.L2.fm.model.datasets;
 
+import U2.L2.fm.model.enums.Type;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Сергеева on 18.03.2016.
  *
  */
+@Entity
+@Table(name = "records")
 public class Record {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "type")
     private Type type;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_rec")
     private Date date;
+
+    @Column(name = "amount")
     private double amount;
+
+    @Column(name = "description")
     private String desc;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_column", nullable = false)
+    private Account account;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "id_category", nullable = false)
     private Category category;
+
+    public Record() {
+    }
 
     public Record(Date date, Category category, Type type, double amount, String desc) {
         this.date = date;
@@ -78,6 +105,14 @@ public class Record {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

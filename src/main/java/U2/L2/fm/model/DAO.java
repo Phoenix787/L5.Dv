@@ -1,9 +1,8 @@
 package U2.L2.fm.model;
 
-import U2.L2.fm.model.datasets.Account;
-import U2.L2.fm.model.datasets.DataStore;
-import U2.L2.fm.model.datasets.Record;
-import U2.L2.fm.model.datasets.User;
+import U2.L2.fm.model.datasets.*;
+import U2.L2.fm.model.enums.Type;
+import U2.L2.fm.model.interfaces.DataStore;
 import U2.L2.fm.model.util.Executor;
 
 import java.sql.Connection;
@@ -23,13 +22,13 @@ public class DAO implements DataStore {
         this.executor = new Executor(connection);
     }
 
-
+    /* -------------------- Выборка ------------------------ */
     @Override
     public User getUser(String name) {
         try {
             return executor.execQuery("Select * from users where name = '" + name + "';", result -> {
                 result.next();
-                return new User(result.getString("name"), result.getString("password"));
+                return new User(result.getLong("id"), result.getString("name"), result.getString("password"));
             });
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -69,7 +68,7 @@ public class DAO implements DataStore {
         }
 
 
-        return null;
+        return new HashSet<>();
     }
 
     public Account getAccount(String description){
@@ -87,9 +86,70 @@ public class DAO implements DataStore {
 
     @Override
     public Set<Record> getRecords(Account account) {
+        try {
+            return executor.execQuery("Select * from records where id_account ='" + account.getId() + "'", resultSet -> {
+                Set<Record> result = new HashSet<>();
+                Category category;
+                Type type;
+
+                while (resultSet.next()) {
+                    category = getCategory(resultSet.getLong("id_category"));
+                    type = resultSet.getBoolean("type") ? Type.EXPAND : Type.INCOME;
+                    result.add(new Record(resultSet.getLong("id"),
+                            resultSet.getDate("date_rec"),
+                            category,
+                            type,
+                            resultSet.getDouble("amount"),
+                            resultSet.getString("description")));
+                }
+                return result;
+            });
+
+        } catch (SQLException e) {
+            System.err.println("Something wrong in record statment");
+        }
+
+        return new HashSet<>();
+    }
+
+    public Category getCategory(long id_category) {
+        try {
+            return executor.execQuery("Select * from category where id_category = '" + id_category + "'",
+                    resultSet -> new Category(resultSet.getLong(1), resultSet.getString(2)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+    public Category getCategoryByName(String name) {
+        try {
+            return executor.execQuery("Select * from category where name = '" + name + "'",
+                    resultSet -> new Category(resultSet.getLong(1), resultSet.getString(2)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
         return null;
     }
 
+    public Set<Category> getCategories(){
+        try {
+            return executor.execQuery("Select * from category", resultSet -> {
+                Set<Category> categories = new HashSet<Category>();
+                while (resultSet.next()) {
+                    categories.add(new Category(resultSet.getLong(1), resultSet.getString(2)));
+                }
+                return categories;
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+/* -------------------- Добавление ------------------------ */
     @Override
     public void addUser(User user) {
         try {
@@ -124,6 +184,10 @@ public class DAO implements DataStore {
         }
     }
 
+
+
+    /* -------------------- Удаление ------------------------ */
+
     @Override
     public User removeUser(User user) {
         try {
@@ -151,8 +215,22 @@ public class DAO implements DataStore {
 
     @Override
     public Record removeRecord(Account account, Record record) {
+        try {
+            executor.execUpdate("delete from records where id = '" + record.getId() + "' and id_account = '" + account.getId() + "'");
+            return record;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
+
+
     }
+
+
+
+
+
+    /* -------------------- Создание таблиц ------------------------ */
 
     public void createTable() {
         try {
@@ -164,8 +242,10 @@ public class DAO implements DataStore {
     public void createTables() {
         try {
             executor.execUpdate("create table if not exists users (id bigint auto_increment primary key, name varchar(256), password varchar(256));" +
-                    "create table if not exists accounts(id bigint auto_increment  primary key, description varchar(256), amount double, id_user bigint, id_record bigint);" +
-                    "create table if not exists records(id bigint auto_increment primary key, description varchar(256), amount double, date_rec date, id_category bigint, type boolean, id_account bigint);" +
+                    "create table if not exists accounts(id bigint auto_increment  primary key, description varchar(256), amount double, " +
+                    "id_user bigint, id_record bigint);" +
+                    "create table if not exists records(id bigint auto_increment primary key, description varchar(256), amount double, date_rec date, " +
+                    "id_category bigint, type boolean, id_account bigint);" +
                     "create table if not exists category(id bigint auto_increment primary key, name varchar(256));");
         } catch (SQLException e) {
             e.printStackTrace();

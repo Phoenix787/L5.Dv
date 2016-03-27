@@ -1,4 +1,8 @@
-package U2.L2.fm.model.datasets;
+package U2.L2.fm.model.interfaces;
+
+import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
+import U2.L2.fm.model.datasets.User;
 
 import java.util.Set;
 

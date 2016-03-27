@@ -1,6 +1,6 @@
 package U2.L2.fm.view;
 
-import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.interfaces.GUI;
 
 import java.util.Scanner;
 

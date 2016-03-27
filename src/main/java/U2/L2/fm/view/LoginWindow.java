@@ -1,6 +1,6 @@
 package U2.L2.fm.view;
 
-import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.interfaces.GUI;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -19,11 +19,12 @@ public class LoginWindow extends JFrame {
 
     private JTextField tfUsername;
     private JPasswordField pfPassword;
-
     private boolean succeeded;
+    private final GUI controller;
 
 
     public LoginWindow(GUI controller){
+        this.controller = controller;
 //        Toolkit kit = Toolkit.getDefaultToolkit();
 //        Dimension screenSize = kit.getScreenSize();
 //        int screenWith = screenSize.width;
@@ -90,7 +91,7 @@ public class LoginWindow extends JFrame {
 
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(e -> {
-            onOk(controller);
+            onOk();
 
         });
         JButton btnCancel = new JButton("Cancel");
@@ -106,7 +107,7 @@ public class LoginWindow extends JFrame {
         btnPanel.registerKeyboardAction(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                onOk(controller);
+                onOk();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
         setResizable(false);
@@ -114,21 +115,10 @@ public class LoginWindow extends JFrame {
 
     }
 
-    private void onOk(GUI controller) {
-        if (controller.authenticate(getUserName(), getPassword())){
-            JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
-                    "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
-            succeeded = true;
-            new MainWindow(controller).start();
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",
-                    JOptionPane.ERROR_MESSAGE);
-            tfUsername.setText("");
-            pfPassword.setText("");
-            succeeded = false;
+    private void onOk() {
+        //как вариант - надо переделать
+        new Thread(runnable).start();
 
-        }
     }
 
     public void start(){
@@ -146,5 +136,24 @@ public class LoginWindow extends JFrame {
     public boolean isSucceeded() {
         return succeeded;
     }
+
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            if (controller.authenticate(getUserName(), getPassword())){
+                JOptionPane.showMessageDialog(LoginWindow.this, "Hi, " + getUserName() + "!\nYou have " +
+                        "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
+                succeeded = true;
+                new MainWindow(controller).start();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",
+                        JOptionPane.ERROR_MESSAGE);
+                tfUsername.setText("");
+                pfPassword.setText("");
+                succeeded = false;
+
+            }
+        }
+    };
 
 }

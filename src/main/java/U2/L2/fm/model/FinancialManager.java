@@ -1,11 +1,14 @@
 package U2.L2.fm.model;
+
 import U2.L2.fm.controller.DBHelper;
-import U2.L2.fm.model.datasets.Account;
-import U2.L2.fm.model.datasets.User;
+import U2.L2.fm.model.datasets.*;
+import U2.L2.fm.model.enums.Type;
+import U2.L2.fm.model.interfaces.Manageable;
 import U2.L2.fm.model.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +16,7 @@ import java.util.Set;
  * Created by Сергеева on 18.03.2016.
  *
  */
-public class FinancialManager {
+public class FinancialManager implements Manageable {
 
     private DBHelper dbHelper;
     private String owner;
@@ -58,6 +61,8 @@ public class FinancialManager {
         return owner;
     }
 
+    /*-----------------ACCOUNT----------------------------------------------------*/
+
     public boolean addAccount(String username, String accountDesc, double amount){
         User user = dbHelper.getUser(username);
         if (user != null) {
@@ -75,6 +80,21 @@ public class FinancialManager {
             return dbHelper.getAccounts(user);
         }
         return new HashSet<>();
+    }
+
+    /*-----------------RECORDS----------------------------------------------------*/
+
+    public boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc){
+
+        Account account = dbHelper.getAccount(descAccount);
+        Category category = dbHelper.getCategory(nameCategory);
+        if (account != null && category != null){
+            logger.info("New record to account {} is added", descAccount);
+            Type t = type ? Type.EXPAND : Type.INCOME;
+            dbHelper.addRecord(account, new Record(date, category, t, amount, recordDesc));
+            return true;
+        }
+        return false;
     }
 
 

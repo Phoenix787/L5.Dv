@@ -1,4 +1,4 @@
-package U2.L2.fm.controller;
+package U2.L2.fm.model.interfaces;
 
 import U2.L2.fm.model.datasets.Account;
 

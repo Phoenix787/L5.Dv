@@ -1,12 +1,10 @@
 package U2.L2.fm;
 
 import U2.L2.fm.controller.DBHelper;
-import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.controller.LoginWindowController;
 import U2.L2.fm.model.FinancialManager;
-import U2.L2.fm.view.AccountForm;
 import U2.L2.fm.view.LoginWindow;
-import U2.L2.fm.view.MainWindow;
 
 /**
  * Created by Ксения on 17.03.2016.

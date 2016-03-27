@@ -1,17 +1,47 @@
 package U2.L2.fm.model.datasets;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Сергеева on 18.03.2016.
  *
  */
+@Entity
+@Table(name = "accounts")
 public class Account {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "amount")
     private double amount;
-    private List<Record> records;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "accounts")
+     private Set<Record> records;
+
+    public Account(){
+
+    }
+
+    public Account(String description, double amount) {
+        this.id = -1;
+        this.description = description;
+        this.amount = amount;
+        this.records = new HashSet<>();
+    }
+
+    public Account(long id, String description, double amount) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.records = new HashSet<>();
+    }
 
     public long getId() {
         return id;
@@ -19,20 +49,6 @@ public class Account {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Account(String description, double amount) {
-        this.id = -1;
-        this.description = description;
-        this.amount = amount;
-        this.records = new ArrayList<>();
-    }
-
-    public Account(long id, String description, double amount) {
-        this.id = id;
-        this.description = description;
-        this.amount = amount;
-        this.records = new ArrayList<>();
     }
 
     public String getDescription() {
@@ -51,11 +67,11 @@ public class Account {
         this.amount = amount;
     }
 
-    public List<Record> getRecords() {
+    public Set<Record> getRecords() {
         return records;
     }
 
-    public void setRecords(List<Record> records) {
+    public void setRecords(Set<Record> records) {
         this.records = records;
     }
 

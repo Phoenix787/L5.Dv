@@ -1,17 +1,27 @@
 package U2.L2.fm.model.datasets;
 
+import javax.persistence.*;
+
 /**
  * Created by Ксения on 19.03.2016.
  *
  */
-class Category {
+@Entity
+@Table(name = "category")
+public class Category {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToMany(fetch = FetchType.LAZY)
     private long id;
+
+    @Column(name = "name")
     private String nameCategory;
 
-    public Category(String nameCategory) {
+    public Category(long id, String nameCategory) {
 
         this.nameCategory = nameCategory;
-        this.id = -1;
+        this.id = id;
     }
 
     public Category() {

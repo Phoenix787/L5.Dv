@@ -1,4 +1,4 @@
-package U2.L2.fm.model.datasets;
+package U2.L2.fm.model.enums;
 
 /**
  * Created by Ксения on 19.03.2016.

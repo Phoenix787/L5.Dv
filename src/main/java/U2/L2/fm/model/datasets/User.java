@@ -1,27 +1,43 @@
 package U2.L2.fm.model.datasets;
 
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
  * Created by Сергеева on 18.03.2016.
  *
  */
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "password")
     private String password;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Account> accounts;
-    {
-        this.name = "Anonymnous";
-        this.password = "1234";
-        this.accounts = new HashSet<>();
-    }
+//    {
+//        this.name = "Anonymnous";
+//        this.password = "1234";
+//        this.accounts = new HashSet<>();
+//    }
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
         this.id = -1;
+    }
+    public User(long id, String name, String password) {
+        this.name = name;
+        this.password = password;
+        this.id = id;
     }
 
     public User() {

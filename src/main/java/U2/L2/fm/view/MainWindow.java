@@ -1,6 +1,6 @@
 package U2.L2.fm.view;
 
-import U2.L2.fm.controller.GUI;
+import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.DatabaseListModel;
 import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.util.ExitAction;
@@ -120,8 +120,6 @@ public class MainWindow extends JFrame {
         menuBar.add(createEditMenu());
         setJMenuBar(menuBar);
     }
-
-
 
     private JMenu createFileMenu(){
         JMenu file = new JMenu("File");
