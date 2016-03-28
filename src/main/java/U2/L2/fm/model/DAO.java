@@ -175,7 +175,7 @@ public class DAO implements DataStore {
     public void addRecord(Account account, Record record) {
         try {
             executor.execUpdate("insert into records(description, date, amount, id_account) values('"
-                    + record.getDesc() + "', '"
+                    + record.getRecordName() + "', '"
                     + record.getDate() + "', '"
                     + record.getAmount() + "', '"
                     + account.getId() + "');");

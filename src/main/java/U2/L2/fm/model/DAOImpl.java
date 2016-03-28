@@ -15,10 +15,10 @@ import java.util.Set;
 /**
  * Created by Ксения on 26.03.2016.
  */
-public class UserDAO implements DataStore {
+public class DAOImpl implements DataStore {
     private Session session;
 
-    public UserDAO(Session session) {
+    public DAOImpl(Session session) {
         this.session = session;
     }
 
@@ -71,29 +71,61 @@ public class UserDAO implements DataStore {
         }
     }
 
+    public void updateUser(User user) {
+        try {
+            session.saveOrUpdate(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void addAccount(User user, Account account) {
+        try {
+            session.save(account);
+            user.getAccounts().add(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void updateAccount(User user, Account account) {
+        try {
+            session.saveOrUpdate(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void addRecord(Account account, Record record) {
+        try {
+            session.save(record);
+            account.getRecords().add(record);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public User removeUser(User user) {
-        return null;
+        session.delete(user);
+        return user;
     }
 
     @Override
     public Account removeAccount(User owner, Account account) {
-        return null;
+        session.delete(account);
+        owner.getAccounts().remove(account);
+        return account;
     }
 
     @Override
     public Record removeRecord(Account account, Record record) {
-        return null;
+        session.delete(record);
+        account.getRecords().remove(record);
+        return record;
     }
 }

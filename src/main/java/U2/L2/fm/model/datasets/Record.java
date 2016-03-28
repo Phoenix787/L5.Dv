@@ -28,7 +28,7 @@ public class Record {
     private double amount;
 
     @Column(name = "description")
-    private String desc;
+    private String recordName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_column", nullable = false)
@@ -41,22 +41,22 @@ public class Record {
     public Record() {
     }
 
-    public Record(Date date, Category category, Type type, double amount, String desc) {
+    public Record(Date date, Category category, Type type, double amount, String recordName) {
         this.date = date;
         this.type = type;
         this.category = category;
         this.amount = amount;
-        this.desc = desc;
+        this.recordName = recordName;
         this.id = -1;
     }
 
-    public Record(long id, Date date, Category category, Type type, double amount, String desc) {
+    public Record(long id, Date date, Category category, Type type, double amount, String recordName) {
         this.id = id;
         this.date = date;
         this.type = type;
         this.category = category;
         this.amount = amount;
-        this.desc = desc;
+        this.recordName = recordName;
     }
 
     public long getId() {
@@ -83,12 +83,12 @@ public class Record {
         this.amount = amount;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getRecordName() {
+        return recordName;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setRecordName(String recordName) {
+        this.recordName = recordName;
     }
 
     public Type getType() {
@@ -122,7 +122,7 @@ public class Record {
 
         Record record = (Record) o;
 
-        return id == record.id && Double.compare(record.amount, amount) == 0 && date.equals(record.date) && (desc != null ? desc.equals(record.desc) : record.desc == null);
+        return id == record.id && Double.compare(record.amount, amount) == 0 && date.equals(record.date) && (recordName != null ? recordName.equals(record.recordName) : record.recordName == null);
 
     }
 
@@ -134,7 +134,7 @@ public class Record {
         result = 31 * result + date.hashCode();
         temp = Double.doubleToLongBits(amount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (desc != null ? desc.hashCode() : 0);
+        result = 31 * result + (recordName != null ? recordName.hashCode() : 0);
         return result;
     }
 }
