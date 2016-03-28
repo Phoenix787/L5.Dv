@@ -22,13 +22,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="users")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="user")
     private Set<Account> accounts = new HashSet<>();
-//    {
-//        this.name = "Anonymnous";
-//        this.password = "1234";
-//        this.accounts = new HashSet<>();
-//    }
+
 
     public User(String name, String password) {
         this.name = name;

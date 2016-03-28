@@ -26,9 +26,9 @@ public class Account {
     @JoinColumn(name = "id_user")
     private User user;
 
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "accounts")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "account")
      private Set<Record> records;
+
 
     public Account(){
 
