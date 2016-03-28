@@ -30,12 +30,12 @@ public class Record {
     @Column(name = "description")
     private String recordName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_column", nullable = false)
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_account")
     private Account account;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id_category", nullable = false)
+    @ManyToOne(cascade= {CascadeType.REFRESH}, fetch=FetchType.LAZY)
+    @JoinColumn(name = "id_category")
     private Category category;
 
     public Record() {

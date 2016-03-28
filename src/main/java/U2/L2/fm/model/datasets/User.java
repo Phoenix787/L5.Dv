@@ -1,6 +1,7 @@
 package U2.L2.fm.model.datasets;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -21,8 +22,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
-    private Set<Account> accounts;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="users")
+    private Set<Account> accounts = new HashSet<>();
 //    {
 //        this.name = "Anonymnous";
 //        this.password = "1234";

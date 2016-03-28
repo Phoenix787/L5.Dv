@@ -12,9 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Ксения on 26.03.2016.
- */
+
 public class DAOImpl implements DataStore {
     private Session session;
 

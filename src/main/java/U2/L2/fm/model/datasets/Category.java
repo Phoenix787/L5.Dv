@@ -12,7 +12,7 @@ public class Category {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToMany(fetch = FetchType.LAZY)
+    //@OneToMany(fetch = FetchType.EAGER)
     private long id;
 
     @Column(name = "name")

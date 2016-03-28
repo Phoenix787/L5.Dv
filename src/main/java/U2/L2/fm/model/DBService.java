@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class DBService {
@@ -83,6 +84,16 @@ public class DBService {
         return user;
     }
 
+    public Set<String> getUserNames(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        DAOImpl dao = new DAOImpl(session);
+        Set<String> result = dao.getUserNames();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
     public void addAccount(User user, Account account) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -92,10 +103,10 @@ public class DBService {
         session.close();
     }
 
-    public List<Account> getAccounts() {
+    public List<Account> getAccounts(User user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Account> result = session.createQuery("from Account order by description").list();
+        List<Account> result = session.createQuery("from Account where id_user = " + user.getId() + "order by description").list();
         for (Account account : result) {
             Hibernate.initialize(account.getRecords());
         }
@@ -111,10 +122,10 @@ public class DBService {
         session.close();
     }
 
-    public List<Record> getRecords(){
+    public List<Record> getRecords(Account account){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Record> result = session.createQuery("from Record order by recordName").list();
+        List<Record> result = session.createQuery("from Record where id_account = " + account.getId() + "order by recordName").list();
         for (Record record : result) {
             Hibernate.initialize(record.getCategory());
         }

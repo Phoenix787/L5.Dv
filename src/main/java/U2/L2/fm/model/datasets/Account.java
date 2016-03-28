@@ -22,6 +22,11 @@ public class Account {
     @Column(name = "amount")
     private double amount;
 
+    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
+
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "accounts")
      private Set<Record> records;
 
@@ -73,6 +78,14 @@ public class Account {
 
     public void setRecords(Set<Record> records) {
         this.records = records;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
