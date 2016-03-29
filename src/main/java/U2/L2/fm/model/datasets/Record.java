@@ -120,7 +120,7 @@ public class Record {
         Record record = (Record) o;
 
         return Double.compare(record.amount, amount) == 0
-                && date.equals(record.date)
+//                && date.equals(record.date)
                 && (recordName != null ? recordName.equals(record.recordName) : record.recordName == null);
 
     }
