@@ -1,7 +1,5 @@
 package U2.L3.ex4;
 
-import U2.L3.ex3.view.LoginDialog;
-
 import javax.swing.*;
 
 /**

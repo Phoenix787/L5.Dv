@@ -3,6 +3,7 @@ package U2.L2.fm.controller;
 import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.interfaces.GUI;
+import U2.L2.fm.model.interfaces.Manageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +15,11 @@ import java.util.Set;
  */
 public class ConsoleController implements GUI {
     private final Logger logger = LoggerFactory.getLogger(FinancialManager.class.getName());
-    private FinancialManager fm;
+    private Manageable fm;
 
 
 
-    public ConsoleController(FinancialManager fm) {
+    public ConsoleController(Manageable fm) {
         this.fm = fm;
 
     }

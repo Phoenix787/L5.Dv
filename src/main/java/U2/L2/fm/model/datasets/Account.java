@@ -12,9 +12,9 @@ import java.util.Set;
 @Table(name = "accounts")
 public class Account {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "account_id")
+    private long accountId;
 
     @Column(name = "description")
     private String description;
@@ -22,12 +22,12 @@ public class Account {
     @Column(name = "amount")
     private double amount;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "account")
-     private Set<Record> records;
+    private Set<Record> records = new HashSet<>();
 
 
     public Account(){
@@ -35,25 +35,24 @@ public class Account {
     }
 
     public Account(String description, double amount) {
-        this.id = -1;
         this.description = description;
         this.amount = amount;
         this.records = new HashSet<>();
     }
 
-    public Account(long id, String description, double amount) {
-        this.id = id;
+    public Account(Long id, String description, double amount) {
+        this.accountId = id;
         this.description = description;
         this.amount = amount;
         this.records = new HashSet<>();
     }
 
-    public long getId() {
-        return id;
+    public long getAccountId() {
+        return accountId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getDescription() {

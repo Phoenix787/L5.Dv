@@ -1,6 +1,7 @@
 package U2.L2.fm.model;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.interfaces.DataStore;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.datasets.User;
@@ -49,7 +50,7 @@ public class DAOImpl implements DataStore {
 //        Set<Account> result = new HashSet<>();
 //        result.addAll(list);
 //        return result;
-        return (Set<Account>)criteria.add(Restrictions.eq("id_user", owner.getId())).uniqueResult();
+        return (Set<Account>)criteria.add(Restrictions.eq("id_user", owner.getUserId())).uniqueResult();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class DAOImpl implements DataStore {
     public Set<Record> getRecords(Account account) {
         Criteria criteria = session.createCriteria(Record.class);
 
-        return (Set<Record>)criteria.add(Restrictions.eq("id_account",account.getId())).uniqueResult();
+        return (Set<Record>)criteria.add(Restrictions.eq("id_account",account.getAccountId())).uniqueResult();
     }
 
     @Override
@@ -80,8 +81,10 @@ public class DAOImpl implements DataStore {
     @Override
     public void addAccount(User user, Account account) {
         try {
-            session.save(account);
             user.getAccounts().add(account);
+            session.saveOrUpdate(user);
+            //session.save(account);
+           //
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,6 +131,13 @@ public class DAOImpl implements DataStore {
     }
 
 
+    public void addCategory(Category category) {
+        try {
+            session.save(category);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 }

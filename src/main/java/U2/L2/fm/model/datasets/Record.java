@@ -1,7 +1,5 @@
 package U2.L2.fm.model.datasets;
 
-import U2.L2.fm.model.enums.Type;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,11 +12,11 @@ import java.util.Date;
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+    @Column(name = "record_id")
+    private Long recordId;
 
     @Column(name = "type")
-    private Type type;
+    private Boolean isPut;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "date_rec")
@@ -30,41 +28,40 @@ public class Record {
     @Column(name = "description")
     private String recordName;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_account")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToOne(cascade= {CascadeType.REFRESH}, fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_category")
+    @ManyToOne(cascade= {CascadeType.ALL}, fetch=FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Record() {
     }
 
-    public Record(Date date, Category category, Type type, double amount, String recordName) {
+    public Record(Date date, Category category, Boolean isPut, double amount, String recordName) {
         this.date = date;
-        this.type = type;
-        this.category = category;
-        this.amount = amount;
-        this.recordName = recordName;
-        this.id = -1;
-    }
-
-    public Record(long id, Date date, Category category, Type type, double amount, String recordName) {
-        this.id = id;
-        this.date = date;
-        this.type = type;
+        this.isPut = isPut;
         this.category = category;
         this.amount = amount;
         this.recordName = recordName;
     }
 
-    public long getId() {
-        return id;
+    public Record(Long id, Date date, Category category, Boolean isPut, double amount, String recordName) {
+        this.recordId = id;
+        this.date = date;
+        this.isPut = isPut;
+        this.category = category;
+        this.amount = amount;
+        this.recordName = recordName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
     }
 
     public Date getDate() {
@@ -91,12 +88,12 @@ public class Record {
         this.recordName = recordName;
     }
 
-    public Type getType() {
-        return type;
+    public Boolean isPut() {
+        return isPut;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setIsPut(Boolean isPut) {
+        this.isPut = isPut;
     }
 
     public Category getCategory() {
@@ -122,7 +119,9 @@ public class Record {
 
         Record record = (Record) o;
 
-        return id == record.id && Double.compare(record.amount, amount) == 0 && date.equals(record.date) && (recordName != null ? recordName.equals(record.recordName) : record.recordName == null);
+        return Double.compare(record.amount, amount) == 0
+                && date.equals(record.date)
+                && (recordName != null ? recordName.equals(record.recordName) : record.recordName == null);
 
     }
 
@@ -130,11 +129,13 @@ public class Record {
     public int hashCode() {
         int result;
         long temp;
-        result = (int) (id ^ (id >>> 32));
-        result = 31 * result + date.hashCode();
+        result = isPut != null ? isPut.hashCode() : 0;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         temp = Double.doubleToLongBits(amount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (recordName != null ? recordName.hashCode() : 0);
+        result = 31 * result + (account != null ? account.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
     }
 }

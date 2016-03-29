@@ -64,7 +64,7 @@ public class DBHelper {
 
         dao.addUser(user);
         logger.info("Add new user with name: {}", user.getName());
-        //return dao.getUser(user.getName()).getId();
+        //return dao.getUser(user.getName()).getAccountId();
     }
 
     public User getUser(String name) {

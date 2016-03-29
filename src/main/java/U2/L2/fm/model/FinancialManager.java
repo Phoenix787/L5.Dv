@@ -91,7 +91,7 @@ public class FinancialManager implements Manageable {
         if (account != null && category != null){
             logger.info("New record to account {} is added", descAccount);
             Type t = type ? Type.EXPAND : Type.INCOME;
-            dbHelper.addRecord(account, new Record(date, category, t, amount, recordDesc));
+            dbHelper.addRecord(account, new Record(date, category, type, amount, recordDesc));
             return true;
         }
         return false;

@@ -1,6 +1,5 @@
 package U2.L2.fm.model.datasets;
 
-import U2.L2.fm.model.enums.Type;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,19 +18,19 @@ public class AccountTest {
     @Before
     public void setUp(){
         account = new Account("General account", 458.78);
-        record = new Record(1, new Date(), new Category(1, "Post"), Type.EXPAND, 4.8, "buy juice");
+        record = new Record(1L, new Date(), new Category(1L, "Post"), true, 4.8, "buy juice");
     }
 
     @Test
     public void getId() throws Exception {
-        assertEquals(-1, account.getId());
+        assertEquals(-1, account.getAccountId());
 
     }
 
     @Test
     public void setId() throws Exception {
-        account.setId(1);
-        assertEquals(1, account.getId());
+        account.setAccountId(1L);
+        assertEquals(1, account.getAccountId());
     }
 
     @Test

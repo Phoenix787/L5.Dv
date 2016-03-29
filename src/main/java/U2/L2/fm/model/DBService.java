@@ -25,6 +25,7 @@ public class DBService {
     public DBService() {
         Configuration configuration = getH2Configuration();
         this.sessionFactory = createSessionFactory(configuration);
+
     }
 
     /*------------CONFIGURATION ----------------------------------------*/
@@ -42,7 +43,7 @@ public class DBService {
         configuration.setProperty("hibernate.connection.username", "tully");
         configuration.setProperty("hibernate.connection.password", "tully");
         configuration.setProperty("hibernate.show_sql", hibernate_show_sql);
-        configuration.setProperty("hibernate.hbm2dll.auto", hbm2ddl_auto);
+        configuration.setProperty("hibernate.hbm2ddl.auto", hbm2ddl_auto);
 
         return configuration;
     }
@@ -56,11 +57,11 @@ public class DBService {
 
     /*  CRUD-methods  */
 
-    public void addUser(String name, String password) {
+    public void addUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         DAOImpl dao = new DAOImpl(session);
-        dao.addUser(new User(name, password));
+        dao.addUser(user);
         transaction.commit();
         session.close();
     }
@@ -106,10 +107,12 @@ public class DBService {
     public List<Account> getAccounts(User user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Account> result = session.createQuery("from Account where id_user = " + user.getId() + "order by description").list();
+        List<Account> result = session.createQuery("from Account where user_id = " + user.getUserId() + "order by description").list();
         for (Account account : result) {
             Hibernate.initialize(account.getRecords());
         }
+        session.getTransaction().commit();
+        session.close();
         return result;
     }
 
@@ -125,10 +128,12 @@ public class DBService {
     public List<Record> getRecords(Account account){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Record> result = session.createQuery("from Record where id_account = " + account.getId() + "order by recordName").list();
+        List<Record> result = session.createQuery("from Record where account_id = " + account.getAccountId() + "order by recordName").list();
         for (Record record : result) {
             Hibernate.initialize(record.getCategory());
         }
+        session.getTransaction().commit();
+        session.close();
         return result;
     }
 
@@ -137,8 +142,30 @@ public class DBService {
         session.beginTransaction();
         Record result = (Record) session.load(Record.class, account_id);
         Hibernate.initialize(result.getCategory());
+        session.getTransaction().commit();
+        session.close();
         return result;
     }
+
+    public void addCategory(Category category) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        DAOImpl dao = new DAOImpl(session);
+        dao.addCategory(category);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public List<Category> getCategories(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Category> result = session.createQuery("from Category order by nameCategory").list();
+
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
 
 
 

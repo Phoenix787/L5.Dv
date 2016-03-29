@@ -43,7 +43,9 @@ public class FinancialManagerWithHibernate implements Manageable {
             return false;
         }
 
-        dbService.addUser(name, new String(PasswordHelper.getInstance().getSha256Hash(password)));
+        user = new User(name, new String(PasswordHelper.getInstance().getSha256Hash(password)));
+
+        dbService.addUser(user);
         owner = name;
         logger.info("New User with login: {} and password: {} have added. ", name, password);
         return true;

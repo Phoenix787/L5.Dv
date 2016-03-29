@@ -11,10 +11,11 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "name")
     private String name;
@@ -29,23 +30,24 @@ public class User {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
-        this.id = -1;
+
     }
-    public User(long id, String name, String password) {
+    public User(Long id, String name, String password) {
         this.name = name;
         this.password = password;
-        this.id = id;
+        this.userId = id;
     }
 
     public User() {
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {

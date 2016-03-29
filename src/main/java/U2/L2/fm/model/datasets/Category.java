@@ -1,6 +1,7 @@
 package U2.L2.fm.model.datasets;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Ксения on 19.03.2016.
@@ -10,18 +11,25 @@ import javax.persistence.*;
 @Table(name = "category")
 public class Category {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@OneToMany(fetch = FetchType.EAGER)
-    private long id;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     @Column(name = "name")
     private String nameCategory;
 
-    public Category(long id, String nameCategory) {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "category")
+    private List<Record> records;
+
+    public Category(Long id, String nameCategory) {
 
         this.nameCategory = nameCategory;
-        this.id = id;
+        this.categoryId = id;
+    }
+    public Category(String nameCategory) {
+
+        this.nameCategory = nameCategory;
+
     }
 
     public Category() {
@@ -35,11 +43,19 @@ public class Category {
         this.nameCategory = nameCategory;
     }
 
-    public long getId() {
-        return id;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 }
