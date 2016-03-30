@@ -129,15 +129,15 @@ public class DAOImpl implements DataStore {
 
     @Override
     public Account removeAccount(User owner, Account account) {
-        session.delete(account);
         owner.getAccounts().remove(account);
+        session.delete(account);
         return account;
     }
 
     @Override
     public Record removeRecord(Account account, Record record) {
-        session.delete(record);
         account.getRecords().remove(record);
+        session.delete(record);
         return record;
     }
 

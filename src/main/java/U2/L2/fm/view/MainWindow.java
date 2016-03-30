@@ -65,14 +65,16 @@ public class MainWindow extends JFrame {
 //        panel.add(jList, constraints);
         panel.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), constraints);
 
+        // TODO: 30.03.2016 JTable
+
+
+
+
         JPanel btnPanel = new JPanel();
 
         JButton btnAddAccount = new JButton("Add account...");
         btnAddAccount.addActionListener(e->{
-
                 new AccountForm(controller, this).start();
-
-
         });
 
         btnPanel.add(btnAddAccount);
