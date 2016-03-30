@@ -104,13 +104,15 @@ public class DBService {
         session.close();
     }
 
-    public List<Account> getAccounts(User user) {
+    public Set<Account> getAccounts(User user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Account> result = session.createQuery("from Account where user_id = " + user.getUserId() + "order by description").list();
-        for (Account account : result) {
-            Hibernate.initialize(account.getRecords());
-        }
+//        List<Account> result = session.createQuery("from Account where user_id = " + user.getUserId() + "order by description").list();
+//        for (Account account : result) {
+//            Hibernate.initialize(account.getRecords());
+//        }
+        DAOImpl dao = new DAOImpl(session);
+        Set<Account> result = dao.getAccounts(user);
         session.getTransaction().commit();
         session.close();
         return result;
@@ -125,13 +127,11 @@ public class DBService {
         session.close();
     }
 
-    public List<Record> getRecords(Account account){
+    public Set<Record> getRecords(Account account){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Record> result = session.createQuery("from Record where account_id = " + account.getAccountId() + "order by recordName").list();
-        for (Record record : result) {
-            Hibernate.initialize(record.getCategory());
-        }
+        DAOImpl dao = new DAOImpl(session);
+        Set<Record> result = dao.getRecords(account);
         session.getTransaction().commit();
         session.close();
         return result;
@@ -159,8 +159,8 @@ public class DBService {
     public List<Category> getCategories(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<Category> result = session.createQuery("from Category order by nameCategory").list();
-
+        DAOImpl dao = new DAOImpl(session);
+        List<Category> result = dao.getCategories();
         session.getTransaction().commit();
         session.close();
         return result;
