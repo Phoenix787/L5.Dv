@@ -116,6 +116,17 @@ public class DBService {
         return result;
     }
 
+    public Account getAccount(String desc) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        DAOImpl dao = new DAOImpl(session);
+        Account result = dao.getAccount(desc);
+        Hibernate.initialize(result.getRecords());
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
     public void addRecord(Account account, Record record) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();

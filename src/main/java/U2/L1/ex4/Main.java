@@ -1,4 +1,4 @@
-package U2.L1.L1.ex4;
+package U2.L1.ex4;
 
 /**
  * Created by Сергеева on 16.03.2016.
@@ -6,8 +6,7 @@ package U2.L1.L1.ex4;
  */
 public class Main {
     public static void main(String[] args) {
-        Gen3<Cat> catGen3 = new Gen3<>(new Cat());
-
-        catGen3.doubleValue();
+         Gen3<Cat> catGen3 = new Gen3<>(new Cat());
+         catGen3.doubleValue();
     }
 }

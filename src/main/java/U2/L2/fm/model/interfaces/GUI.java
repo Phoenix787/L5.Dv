@@ -1,7 +1,9 @@
 package U2.L2.fm.model.interfaces;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +21,10 @@ public interface GUI {
     boolean addAccount(String username, String accountDesc, double amount);
 
     Set<Account> getAccounts(String owner);
+
+    List<Record> getRecords(Account account);
+
+    Account getAccount(String desc);
 
     String[] updateListAccount();
 

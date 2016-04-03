@@ -144,6 +144,7 @@ public class LoginWindow extends JFrame {
                         "successfully logged in.", "Login", JOptionPane.INFORMATION_MESSAGE);
                 succeeded = true;
                 new MainWindow(controller).start();
+//                new MainView(controller);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password", "Login",

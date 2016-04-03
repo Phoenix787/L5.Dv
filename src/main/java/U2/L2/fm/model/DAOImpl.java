@@ -53,12 +53,21 @@ public class DAOImpl implements DataStore {
         return (Set<Account>)criteria.add(Restrictions.eq("user_id", owner.getUserId())).uniqueResult();
     }
 
+    public Account getAccount(String desc) {
+        Criteria criteria = session.createCriteria(Account.class);
+        return (Account)criteria.add(Restrictions.eq("description", desc));
+    }
+
     @Override
     @SuppressWarnings("Unchecked cast")
     public Set<Record> getRecords(Account account) {
         Criteria criteria = session.createCriteria(Record.class);
 
         return (Set<Record>)criteria.add(Restrictions.eq("account_id",account.getAccountId())).uniqueResult();
+    }
+
+    public Record getRecord(Long accountId) {
+        return (Record) session.get(Record.class, accountId);
     }
 
     @Override

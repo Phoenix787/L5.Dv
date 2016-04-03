@@ -2,11 +2,13 @@ package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.interfaces.Manageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,6 +55,16 @@ public class ConsoleController implements GUI {
 
     @Override
     public Set<Account> getAccounts(String owner) {
+        return null;
+    }
+
+    @Override
+    public List<Record> getRecords(Account account) {
+        return null;
+    }
+
+    @Override
+    public Account getAccount(String desc) {
         return null;
     }
 

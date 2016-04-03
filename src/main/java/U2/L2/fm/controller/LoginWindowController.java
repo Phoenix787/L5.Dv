@@ -1,11 +1,13 @@
 package U2.L2.fm.controller;
 
+import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.interfaces.Manageable;
 import U2.L2.fm.model.datasets.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,34 +32,78 @@ public class LoginWindowController implements GUI {
         return fm.signIn(name, password);
     }
 
+    /**
+     * Метод для регистрации нового пользователя
+     * @param username - имя нового пользователя
+     * @param password - пароль нового пользователя
+     * @return true - если новый пользователь добавлен
+     *         false - если такой пользователь существует
+     */
+
     @Override
     public boolean register(String username, String password) {
 
         return fm.signUp(username, password);
     }
 
+    /**
+     * Метод, который возращает набор имен пользователей в системе
+     * @return Set<String>
+     */
+
     public Set<String> getNames() {
         return fm.getUserNames();
     }
 
-    public Set<Account> getAccounts(){
-        return null;
-    }
+    /**
+     * Метод, возвращающий набор счетов конкретного пользователя
+     * @return Set<Account>
+     */
 
     @Override
     public String getOwner(){
         return fm.getOwner();
     }
 
+    /**
+     * Метод добавления нового счета конкретному пользователю
+     * @param username - имя пользователя, которому добавляется новый счет
+     * @param accountDesc - описание счета (наименование)
+     * @param amount - сумма счета
+     * @return возвращает <b>true</b> в случае успеха и <b>false</b> в обратном случае.
+     */
     @Override
     public boolean addAccount(String username, String accountDesc, double amount) {
         return fm.addAccount(username, accountDesc, amount);
     }
 
+    /**
+     * Метод, позволяющий получить список счетов для конкретного пользователя
+     * @param owner - владелец счетов
+     * @return Set<Accounts></Accounts>
+     */
+
     @Override
     public Set<Account> getAccounts(String owner) {
+
         return fm.getAccounts(owner);
     }
+
+    @Override
+    public List<Record> getRecords(Account account) {
+        return fm.getRecords(account);
+    }
+
+    @Override
+    public Account getAccount(String desc) {
+        return fm.getAccount(desc);
+    }
+
+    /**
+     * Вспомогательный метод для списка, который получает набор типа Account и возвращает массив типа String,
+     * чтобы обновить модель списка.
+     * @return String[]
+     */
 
     public String[] updateListAccount() {
         Set<Account> temp = getAccounts(getOwner());

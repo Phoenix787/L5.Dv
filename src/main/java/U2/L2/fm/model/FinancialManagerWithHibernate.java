@@ -1,6 +1,7 @@
 package U2.L2.fm.model;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.datasets.User;
 import U2.L2.fm.model.interfaces.Manageable;
 import U2.L2.fm.model.util.PasswordHelper;
@@ -80,7 +81,17 @@ public class FinancialManagerWithHibernate implements Manageable {
     }
 
     @Override
+    public Account getAccount(String desc) {
+        return null;
+    }
+
+    @Override
     public boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc) {
         return false;
+    }
+
+    @Override
+    public List<Record> getRecords(Account account) {
+        return dbService.getRecords(account);
     }
 }

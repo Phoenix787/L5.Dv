@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -82,6 +83,11 @@ public class FinancialManager implements Manageable {
         return new HashSet<>();
     }
 
+    @Override
+    public Account getAccount(String desc) {
+        return null;
+    }
+
     /*-----------------RECORDS----------------------------------------------------*/
 
     public boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc){
@@ -95,6 +101,11 @@ public class FinancialManager implements Manageable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Record> getRecords(Account account) {
+        return null;
     }
 
 

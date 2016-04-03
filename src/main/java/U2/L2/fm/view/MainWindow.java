@@ -1,36 +1,40 @@
 package U2.L2.fm.view;
 
-import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.DatabaseListModel;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
+import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.util.ExitAction;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Ксения on 19.03.2016.
+ * главное окно
  */
 public class MainWindow extends JFrame {
+    private static final long serialVersionUID = -5778317887893855337L;
+
     private final GUI controller;
     private DatabaseListModel<String> dim;
-
-    public DatabaseListModel<String> getDim() {
-        return dim;
-    }
-
-    public void setDim(DatabaseListModel<String> dim) {
-        this.dim = dim;
-    }
-
+    private JTable jTable;
     private JList<String> jList;
+    private JPanel panel;
+    private GridBagConstraints constraints;
 
-
-    public MainWindow(GUI controller){
+    MainWindow(GUI controller){
         this.controller = controller;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -44,26 +48,57 @@ public class MainWindow extends JFrame {
         setLocation(screenWith/2 - this.getWidth()/2, screenHeight/2 - this.getHeight() / 2);
         //setLocationRelativeTo(null);
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(5, 5, 5, 5);
 
         createMainMenu();
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EtchedBorder());
 
         JLabel lbUser = new JLabel("Пользователь: " + controller.getOwner());
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        panel.add(lbUser, constraints);
 
+        JPanel wrap = new JPanel();
+        wrap.setLayout(new BoxLayout(wrap, BoxLayout.X_AXIS));
         jList = getJList();
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        constraints.weighty = 2;
-//        panel.add(jList, constraints);
-        panel.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), constraints);
+        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                JList<String> list = (JList<String>)e.getSource();
+                Account account = controller.getAccount(list.getSelectedValue());
+                List<Record> records = controller.getRecords(account);
+
+                System.out.println(records.toString());
+            }
+        });
+        wrap.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+
+        // TODO: 31.03.2016 добавить JTable для размещения в ней данных о транзакции (Record)
+
+        String[] data = {"Дата", "Описание", "Сумма", "Категория"};
+        TableColumnModel headerColumns = new DefaultTableColumnModel();
+
+        for (int i = 0; i < data.length; i++) {
+            TableColumn h = new TableColumn(0);
+            h.setHeaderValue(data[i]);
+            headerColumns.addColumn(h);
+        }
+
+        jTable = new JTable();
+        jTable.setTableHeader(new JTableHeader(headerColumns));
+
+        wrap.add(Box.createHorizontalStrut(5));
+        wrap.add(new JScrollPane(jTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+
+
+        panel.add(Box.createHorizontalGlue());
+        panel.add(lbUser);
+        panel.add(Box.createHorizontalGlue());
+        panel.add(wrap);
+
+
 
         JPanel btnPanel = new JPanel();
 
@@ -83,8 +118,17 @@ public class MainWindow extends JFrame {
         getContentPane().add(btnPanel, BorderLayout.PAGE_END);
     }
 
+
+    public DatabaseListModel<String> getDim() {
+        return dim;
+    }
+
+    void setDim(DatabaseListModel<String> dim) {
+        this.dim = dim;
+    }
+
     @NotNull
-    public JList<String> getJList() {
+    private JList<String> getJList() {
         dim = new DatabaseListModel<>();
         Set<String> data = updateListAccount();
         dim.setDataSource(data);
@@ -93,7 +137,7 @@ public class MainWindow extends JFrame {
         return listUsers;
     }
 
-    public void updateJList(){
+    void updateJList(){
         jList.setModel(dim);
     }
 
@@ -102,7 +146,7 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    public Set<String> updateListAccount() {
+    private Set<String> updateListAccount() {
         Set<Account> temp = controller.getAccounts(controller.getOwner());
         Set<String> result = new HashSet<>();
         for (Account account : temp) {
@@ -111,6 +155,10 @@ public class MainWindow extends JFrame {
 
         return result;
     }
+
+
+
+
 
     // TODO: 25.03.2016 make mainMenu createMainManu()
 
@@ -150,5 +198,7 @@ public class MainWindow extends JFrame {
 
         return edit;
     }
+
+
 
 }

@@ -138,4 +138,16 @@ public class Record {
         result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "recordId=" + recordId +
+                ", date=" + date +
+                ", amount=" + amount +
+                ", recordName='" + recordName + '\'' +
+                ", account=" + account +
+                ", category=" + category +
+                '}';
+    }
 }

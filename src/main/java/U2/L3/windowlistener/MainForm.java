@@ -7,6 +7,8 @@ import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.model.datasets.Account;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,13 +27,21 @@ public class MainForm extends JFrame {
 
         JPanel panel = new JPanel();
         dim = new DatabaseListModel<>();
-        Set<String> data = updateListAccount();
+        Set<String> data = updateListAccount(controller.getOwner());
 
 
         dim.setDataSource(data);
         JList<String> jList = new JList<>();
         jList.setSize(40, 30);
+        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.setModel(dim);
+        jList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String element = jList.getSelectedValue();
+                System.out.println(element);
+            }
+        });
         panel.add(new JScrollPane(jList));
 
 
@@ -56,8 +66,8 @@ public class MainForm extends JFrame {
         setVisible(true);
     }
 
-    public Set<String> updateListAccount() {
-        Set<Account> temp = controller.getAccounts("Anna");
+    public Set<String> updateListAccount(String name) {
+        Set<Account> temp = controller.getAccounts(name);
         Set<String> result = new HashSet<>();
         for (Account account : temp) {
             result.add(account.getDescription());

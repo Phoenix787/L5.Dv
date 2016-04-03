@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="U2.L2.fm.controller.LoginController">
+   <top>
+      <Pane prefHeight="60.0" prefWidth="380.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="44.0" prefHeight="53.0" prefWidth="304.0" text="Финансовый менеджер">
+               <font>
+                  <Font name="System Bold Italic" size="23.0" />
+               </font>
+            </Label>
+            <Separator layoutX="7.0" layoutY="52.0" prefHeight="5.0" prefWidth="362.0" />
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <VBox prefHeight="116.0" prefWidth="380.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="72.0" prefWidth="340.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="22.0" prefWidth="95.0" text="Пользователь:">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="tUser" prefHeight="27.0" prefWidth="211.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="53.0" prefWidth="380.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="105.0" text="Пароль: " />
+                  <PasswordField fx:id="tPassword" prefHeight="25.0" prefWidth="207.0" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox prefHeight="27.0" prefWidth="380.0" spacing="8.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="57.0" prefWidth="12.0" />
+            <Label fx:id="lRegistration" text="Регистрация..." textFill="#0f3390" underline="true">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Region prefHeight="38.0" prefWidth="93.0" />
+            <Button fx:id="btnOk" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="ОК">
+               <HBox.margin>
+                  <Insets top="7.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnExit" mnemonicParsing="false" text="Выход">
+               <HBox.margin>
+                  <Insets top="7.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
