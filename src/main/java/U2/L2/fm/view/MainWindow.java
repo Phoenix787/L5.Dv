@@ -100,14 +100,16 @@ public class MainWindow extends JFrame {
 
 
 
+        // TODO: 30.03.2016 JTable
+
+
+
+
         JPanel btnPanel = new JPanel();
 
         JButton btnAddAccount = new JButton("Add account...");
         btnAddAccount.addActionListener(e->{
-
                 new AccountForm(controller, this).start();
-
-
         });
 
         btnPanel.add(btnAddAccount);
@@ -180,21 +182,11 @@ public class MainWindow extends JFrame {
     }
 
     private JMenu createEditMenu() {
-        JMenu edit = new JMenu("Edit");
-        JCheckBoxMenuItem bold = new JCheckBoxMenuItem("Bold");
-        JCheckBoxMenuItem italic = new JCheckBoxMenuItem("Italic");
-        JCheckBoxMenuItem underline = new JCheckBoxMenuItem("Underline");
-
-        JRadioButtonMenuItem male = new JRadioButtonMenuItem("Man");
-        JRadioButtonMenuItem female = new JRadioButtonMenuItem("Female");
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(male);
-        bg.add(female);
-        edit.add(bold);
-        edit.add(italic);
-        edit.add(underline);
-        edit.add(male);
-        edit.add(female);
+        JMenu edit = new JMenu("Редактирование");
+        JMenuItem addAccount = new JMenuItem("Добавить счет");
+        JMenuItem editAccount = new JMenuItem("Редактировать счет");
+        edit.add(addAccount);
+        edit.add(editAccount);
 
         return edit;
     }

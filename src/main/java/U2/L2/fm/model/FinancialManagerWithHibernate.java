@@ -76,8 +76,7 @@ public class FinancialManagerWithHibernate implements Manageable {
     @Override
     public Set<Account> getAccounts(String owner) {
         User user = dbService.getUser(owner);
-        List<Account> list = dbService.getAccounts(user);
-        return new HashSet<>(list);
+        return dbService.getAccounts(user);
     }
 
     @Override

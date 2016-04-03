@@ -6,6 +6,7 @@ import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.datasets.User;
 import U2.L2.fm.model.interfaces.DataStore;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -45,12 +46,17 @@ public class DAOImpl implements DataStore {
     @Override
     @SuppressWarnings("Unchecked cast")
     public Set<Account> getAccounts(User owner) {
-        Criteria criteria = session.createCriteria(Account.class);
+        //Criteria criteria = session.createCriteria(Account.class);
 //        List<Account> list = (List<Account>)criteria.list();
 //        Set<Account> result = new HashSet<>();
 //        result.addAll(list);
 //        return result;
-        return (Set<Account>)criteria.add(Restrictions.eq("user_id", owner.getUserId())).uniqueResult();
+        //(Set<Account>)criteria.add(Restrictions.eq("user_id", owner.getUserId())).uniqueResult()
+        List<Account> result = session.createQuery("from Account where user_id = " + owner.getUserId() + "order by description").list();
+        for (Account account : result) {
+            Hibernate.initialize(account.getRecords());
+        }
+        return new HashSet<>(result);
     }
 
     public Account getAccount(String desc) {
@@ -61,9 +67,14 @@ public class DAOImpl implements DataStore {
     @Override
     @SuppressWarnings("Unchecked cast")
     public Set<Record> getRecords(Account account) {
-        Criteria criteria = session.createCriteria(Record.class);
-
-        return (Set<Record>)criteria.add(Restrictions.eq("account_id",account.getAccountId())).uniqueResult();
+//        Criteria criteria = session.createCriteria(Record.class);
+//
+//        return (Set<Record>)criteria.add(Restrictions.eq("account_id",account.getAccountId())).uniqueResult();
+        List<Record> result = session.createQuery("from Record where account_id = " + account.getAccountId() + "order by recordName").list();
+        for (Record record : result) {
+            Hibernate.initialize(record.getCategory());
+        }
+        return new HashSet<>(result);
     }
 
     public Record getRecord(Long accountId) {
@@ -127,15 +138,15 @@ public class DAOImpl implements DataStore {
 
     @Override
     public Account removeAccount(User owner, Account account) {
-        session.delete(account);
         owner.getAccounts().remove(account);
+        session.delete(account);
         return account;
     }
 
     @Override
     public Record removeRecord(Account account, Record record) {
-        session.delete(record);
         account.getRecords().remove(record);
+        session.delete(record);
         return record;
     }
 
@@ -147,6 +158,9 @@ public class DAOImpl implements DataStore {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public List<Category> getCategories(){
+        return session.createQuery("from Category order by nameCategory").list();
     }
 }
