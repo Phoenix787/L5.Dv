@@ -60,8 +60,9 @@ public class DAOImpl implements DataStore {
     }
 
     public Account getAccount(String desc) {
-        Criteria criteria = session.createCriteria(Account.class);
-        return (Account)criteria.add(Restrictions.eq("description", desc));
+
+        Account result = (Account) session.createQuery("from Account where description = '" + desc + "'");
+        return result;
     }
 
     @Override
