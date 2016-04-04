@@ -2,6 +2,7 @@ package U2.L2.fm.view;
 
 import U2.L2.fm.model.DatabaseListModel;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.util.ExitAction;
 import org.jetbrains.annotations.NotNull;
@@ -15,8 +16,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Ксения on 19.03.2016.
@@ -63,12 +63,17 @@ public class MainWindow extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
-                JList<String> list = (JList<String>)e.getSource();
-                String element = list.getSelectedValue();
-                Account account = controller.getAccount(element);
-               // List<Record> records = controller.getRecords(account);
+                if (e.getValueIsAdjusting()) {
+                    String element = jList.getSelectedValue();
+                    Account account = controller.getAccount(element);
+                    Set<Record> records = controller.getRecords(account);
 
-               // System.out.println(records.toString());
+                    for (Record record : records) {
+                        System.out.println(record.toString());
+                    }
+
+
+                }
             }
         });
         wrap.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));

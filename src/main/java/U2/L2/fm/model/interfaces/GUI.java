@@ -22,7 +22,7 @@ public interface GUI {
 
     Set<Account> getAccounts(String owner);
 
-    List<Record> getRecords(Account account);
+    Set<Record> getRecords(Account account);
 
     Account getAccount(String desc);
 

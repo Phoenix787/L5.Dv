@@ -4,7 +4,6 @@ import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.Record;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,6 +26,6 @@ public interface Manageable {
 
     boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc);
 
-    List<Record> getRecords(Account account);
+    Set<Record> getRecords(Account account);
 
 }

@@ -61,7 +61,7 @@ public class DAOImpl implements DataStore {
 
     public Account getAccount(String desc) {
 
-        Account result = (Account) session.createQuery("from Account where description = '" + desc + "'");
+        Account result = (Account) session.createQuery("from Account where description = '" + desc + "'").uniqueResult();
         return result;
     }
 

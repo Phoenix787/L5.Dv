@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -104,7 +103,7 @@ public class FinancialManager implements Manageable {
     }
 
     @Override
-    public List<Record> getRecords(Account account) {
+    public Set<Record> getRecords(Account account) {
         return null;
     }
 

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 public class FinancialManagerWithHibernate implements Manageable {
@@ -89,7 +88,7 @@ public class FinancialManagerWithHibernate implements Manageable {
     }
 
     @Override
-    public List<Record> getRecords(Account account) {
-        return (List<Record>) dbService.getRecords(account);
+    public Set<Record> getRecords(Account account) {
+        return dbService.getRecords(account);
     }
 }

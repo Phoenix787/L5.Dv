@@ -59,7 +59,7 @@ public class ConsoleController implements GUI {
     }
 
     @Override
-    public List<Record> getRecords(Account account) {
+    public Set<Record> getRecords(Account account) {
         return null;
     }
 
