@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableColumnModel;
@@ -56,6 +57,10 @@ public class MainWindow extends JFrame {
         panel.setBorder(new EtchedBorder());
 
         JLabel lbUser = new JLabel("Пользователь: " + controller.getOwner());
+        Box header = Box.createHorizontalBox();
+        header.add(Box.createHorizontalGlue());
+        header.add(lbUser);
+        header.add(Box.createHorizontalStrut(10));
 
         JPanel wrap = new JPanel();
         wrap.setLayout(new BoxLayout(wrap, BoxLayout.X_AXIS));
@@ -73,12 +78,19 @@ public class MainWindow extends JFrame {
                     for (Record record : records) {
                         System.out.println(record.toString());
                     }
+                    //jTable.setModel();
+                    // TODO: 04.04.2016 написать dataModel для таблицы по образцу DatabaseListModel
 
 
                 }
             }
         });
-        wrap.add(new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+        JScrollPane listScrollPane = new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        listScrollPane.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(),"Accounts",
+                TitledBorder.CENTER, TitledBorder.TOP));
+
+        wrap.add(listScrollPane);
 
         // TODO: 31.03.2016 добавить JTable для размещения в ней данных о транзакции (Record)
 
@@ -95,13 +107,15 @@ public class MainWindow extends JFrame {
         jTable.setTableHeader(new JTableHeader(headerColumns));
 
         wrap.add(Box.createHorizontalStrut(5));
-        wrap.add(new JScrollPane(jTable,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+        JScrollPane tableScrollPane = new JScrollPane(jTable,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        tableScrollPane.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(),"Records of account",
+                TitledBorder.CENTER, TitledBorder.TOP));
+        wrap.add(tableScrollPane);
 
 
-        panel.add(Box.createHorizontalGlue());
-        panel.add(lbUser);
-        panel.add(Box.createHorizontalGlue());
+        panel.add(header);
         panel.add(wrap);
 
 
