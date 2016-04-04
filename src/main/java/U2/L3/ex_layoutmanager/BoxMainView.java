@@ -1,6 +1,8 @@
 package U2.L3.ex_layoutmanager;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +11,12 @@ import java.awt.event.ActionListener;
  * Created by Сергеева on 01.04.2016.
  */
 public class BoxMainView extends JFrame {
-    private final JButton exit;
+    private final JButton btnExit;
+    private final JButton btnAddAccount;
     private JLabel lUser;
     private JList<String> jList;
     private JTable jTable;
+    private final JButton btnAddRecord;
 
     public BoxMainView(){
         super("Финансовый менеджер");
@@ -31,6 +35,12 @@ public class BoxMainView extends JFrame {
         Box wrapper = Box.createHorizontalBox();
         JPanel pList = new JPanel(new BorderLayout(5,5));
         jList = createList();
+        jList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                btnAddRecord.setEnabled(true);
+            }
+        });
         pList.add(jList, BorderLayout.CENTER);
 
         JPanel pTable = new JPanel(new BorderLayout());
@@ -47,16 +57,21 @@ public class BoxMainView extends JFrame {
 
         Box pButtons = Box.createHorizontalBox();
         pButtons.add(Box.createHorizontalGlue());
-        pButtons.add(new JButton("Add account"));
+        btnAddAccount = new JButton("Add account");
+        pButtons.add(btnAddAccount);
         pButtons.add(Box.createHorizontalStrut(5));
-        exit = new JButton("Exit");
-        exit.addActionListener(new ActionListener() {
+        btnAddRecord = new JButton("Add record");
+        btnAddRecord.setEnabled(false);
+        pButtons.add(btnAddRecord);
+        pButtons.add(Box.createHorizontalStrut(5));
+        btnExit = new JButton("Exit");
+        btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        pButtons.add(exit);
+        pButtons.add(btnExit);
         pButtons.add(Box.createHorizontalGlue());
 
         main.add(pHeader);
