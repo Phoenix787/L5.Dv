@@ -16,6 +16,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 /**
@@ -117,6 +119,21 @@ public class MainWindow extends JFrame {
         });
 
         btnPanel.add(btnAddAccount);
+
+        JButton btnAddRecord = new JButton("Add Record...");
+        btnAddRecord.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String accountName = jList.getSelectedValue();
+                if (accountName != null && !"".equals(accountName)) {
+                    new RecordForm(controller).start();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select an account from the list to which you want to attach a transaction ",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        btnPanel.add(btnAddRecord);
 
 
 

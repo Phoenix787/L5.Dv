@@ -8,13 +8,24 @@ import U2.L2.fm.view.LoginWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 /**
  * Created by Ксения on 17.03.2016.
  *
  */
 public class Main extends Application {
 
+    private static final String NIMBUS_LF = "Nimbus";
+
     public static void main(String[] args) {
+        try {
+            setLookAndFeel(NIMBUS_LF);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         GUI controller = new LoginWindowController(new FinancialManagerWithHibernate(new DBService()));
 //        GUI controller = new LoginWindowController(new FinancialManager(DBHelper.getInstance()));
 //        GUI controller = new ConsoleController(new FinancialManagerWithHibernate(new DBService()));
@@ -22,6 +33,7 @@ public class Main extends Application {
         LoginWindow view = new LoginWindow(controller);
 //        //AccountForm view = new AccountForm(controller);
 //        ConsoleView view = new ConsoleView(controller);
+
         view.start();
 
 //        DBService dbService = new DBService();
@@ -74,5 +86,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+    }
+
+    private static void setLookAndFeel(String lf) throws Exception {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if (lf.equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+
+        }catch(Exception e){
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
     }
 }
