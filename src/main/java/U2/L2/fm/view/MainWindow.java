@@ -93,6 +93,7 @@ public class MainWindow extends JFrame {
         wrap.add(listScrollPane);
 
         // TODO: 31.03.2016 добавить JTable для размещения в ней данных о транзакции (Record)
+        // https://examples.javacodegeeks.com/desktop-java/swing/jtable/java-jtable-example/
 
         String[] data = {"Дата", "Описание", "Сумма", "Категория"};
         TableColumnModel headerColumns = new DefaultTableColumnModel();
