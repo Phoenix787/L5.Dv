@@ -71,7 +71,7 @@ public class RecordForm extends JFrame{
         JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(e -> dispose());
         JButton btnAddCategory = new JButton("Добавить категорию");
-        btnAddCategory.addActionListener( e-> new CategoryForm(controller, this).start());
+        btnAddCategory.addActionListener( e -> new CategoryForm(controller, this).start());
 
 
         ctrPane.add(btnOk);
