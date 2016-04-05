@@ -13,10 +13,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +30,6 @@ public class MainWindow extends JFrame {
     private DatabaseTableModel dtm;
     private JTable jTable;
     private JList<String> jList;
-    private JPanel panel;
     private GridBagConstraints constraints;
 
     MainWindow(GUI controller){
@@ -54,7 +49,7 @@ public class MainWindow extends JFrame {
 
         createMainMenu();
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EtchedBorder());
 
@@ -168,15 +163,23 @@ public class MainWindow extends JFrame {
         this.dim = dim;
     }
 
+    /**
+     * Метод для создания JList
+     * @return JList
+     */
     @NotNull
     private JList<String> getJList() {
         dim = new DatabaseListModel<>();
-        Set<String> data = updateListAccount();
+        Set<String> data = getAccountsToList();
         dim.setDataSource(data);
         JList<String> listUsers = new JList<>();
         listUsers.setModel(dim);
         return listUsers;
     }
+
+    /**
+     * Метод для обновления списка на форме
+     */
 
     void updateJList(){
         jList.setModel(dim);
@@ -187,7 +190,12 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    private Set<String> updateListAccount() {
+    /**
+     * получаем список accounts конкретного пользователя
+     * @return Set<String> - набор названий счетов
+     */
+
+    private Set<String> getAccountsToList() {
         Set<Account> temp = controller.getAccounts(controller.getOwner());
         Set<String> result = new HashSet<>();
         for (Account account : temp) {
