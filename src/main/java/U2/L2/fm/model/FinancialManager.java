@@ -87,6 +87,11 @@ public class FinancialManager implements Manageable {
         return null;
     }
 
+    @Override
+    public boolean addRecord(Account account, String nameCategory, boolean type, Date date, double amount, String recordDesc) {
+        return false;
+    }
+
     /*-----------------RECORDS----------------------------------------------------*/
 
     public boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc){
@@ -113,6 +118,11 @@ public class FinancialManager implements Manageable {
     @Override
     public Set<Category> getCategories() {
         return dbHelper.getCategories();
+    }
+
+    @Override
+    public boolean addCategory(String text) {
+        return false;
     }
 
 

@@ -25,9 +25,11 @@ public interface Manageable {
 
     Account getAccount(String desc);
 
-    boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc);
+    boolean addRecord(Account account, String nameCategory, boolean type, Date date, double amount, String recordDesc);
 
     Set<Record> getRecords(Account account);
 
     Set<Category> getCategories();
+
+    boolean addCategory(String text);
 }

@@ -164,4 +164,8 @@ public class DAOImpl implements DataStore {
     public List<Category> getCategories(){
         return session.createQuery("from Category order by nameCategory").list();
     }
+
+    public Category getCategory(String nameCategory) {
+        return (Category)session.createQuery("from Category where nameCategory = " + nameCategory).uniqueResult();
+    }
 }

@@ -1,5 +1,7 @@
 package U2.L2.fm.model.comboBoxModel;
 
+import U2.L2.fm.model.datasets.Category;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,19 +10,20 @@ import java.util.Set;
 /**
  * Created by Сергеева on 05.04.2016.
  */
-public class ComboboxCategoryModel<E> extends DefaultListModel<E> implements ComboBoxModel<E> {
+public class CategoryModel extends DefaultListModel implements ComboBoxModel {
 
-    private final ArrayList<E> categories = new ArrayList<>();
+    private final ArrayList<String> categories = new ArrayList<>();
     Object selected;
 
 
-    public void setCategories(Set<E> rs) {
-        Iterator<E> iterator = rs.iterator();
+    public void setCategories(Set<Category> rs) {
+        Iterator<Category> iterator = rs.iterator();
         try {
             categories.clear();
             while (iterator.hasNext()) {
                 synchronized (categories) {
-                    categories.add(iterator.next());
+                    Category category = iterator.next();
+                    categories.add(category.getNameCategory());
                 }
 
                 //оповещаем views если они есть
@@ -47,7 +50,7 @@ public class ComboboxCategoryModel<E> extends DefaultListModel<E> implements Com
         return selected;
     }
 
-    public E getElementAt(int index) {
+    public String getElementAt(int index) {
         return categories.get(index);
     }
 

@@ -7,7 +7,7 @@ import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.view.LoginWindow;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -74,5 +74,15 @@ public class Controller implements GUI {
     @Override
     public Set<Category> getCategories() {
         return null;
+    }
+
+    @Override
+    public boolean addCategory(String text) {
+        return false;
+    }
+
+    @Override
+    public boolean addRecord(Account account, String nameCategory, Date date, Double amount, Boolean checked, String recDesc) {
+        return false;
     }
 }

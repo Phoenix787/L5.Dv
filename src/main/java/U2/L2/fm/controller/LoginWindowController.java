@@ -1,14 +1,14 @@
 package U2.L2.fm.controller;
 
+import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.interfaces.Manageable;
-import U2.L2.fm.model.datasets.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -119,6 +119,16 @@ public class LoginWindowController implements GUI {
     @Override
     public Set<Category> getCategories() {
         return fm.getCategories();
+    }
+
+    @Override
+    public boolean addCategory(String text) {
+        return fm.addCategory(text);
+    }
+
+    @Override
+    public boolean addRecord(Account account, String nameCategory, Date date, Double amount, Boolean checked, String recDesc) {
+        return fm.addRecord(account, nameCategory, checked, date, amount, recDesc);
     }
 
 

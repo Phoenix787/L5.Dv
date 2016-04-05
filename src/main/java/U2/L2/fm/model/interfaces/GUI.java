@@ -4,7 +4,7 @@ import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -32,4 +32,7 @@ public interface GUI {
     Set<Category> getCategories();
 
 
+    boolean addCategory(String text);
+
+    boolean addRecord(Account account, String nameCategory, Date date, Double amount, Boolean checked, String recDesc);
 }

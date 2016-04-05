@@ -178,7 +178,13 @@ public class DBService {
     }
 
 
-
-
-
+    public Category getCategory(String nameCategory) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        DAOImpl dao = new DAOImpl(session);
+        Category result = dao.getCategory(nameCategory);
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
 }

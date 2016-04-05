@@ -14,9 +14,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Ксения on 19.03.2016.
@@ -134,16 +133,14 @@ public class MainWindow extends JFrame {
         btnPanel.add(btnAddAccount);
 
         JButton btnAddRecord = new JButton("Add Record...");
-        btnAddRecord.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String accountName = jList.getSelectedValue();
-                if (accountName != null && !"".equals(accountName)) {
-                    new RecordForm(controller).start();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please select an account from the list to which you want to attach a transaction ",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        btnAddRecord.addActionListener(e -> {
+            String accountName = jList.getSelectedValue();
+            if (accountName != null && !"".equals(accountName)) {
+                Account account = controller.getAccount(accountName);
+                new RecordForm(controller, account, this).start();
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select an account from the list to which you want to attach a transaction ",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         btnPanel.add(btnAddRecord);

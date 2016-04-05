@@ -9,10 +9,7 @@ import U2.L2.fm.model.util.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class FinancialManagerWithHibernate implements Manageable {
     private DBService dbService;
@@ -86,7 +83,14 @@ public class FinancialManagerWithHibernate implements Manageable {
     }
 
     @Override
-    public boolean addRecord(String descAccount, String nameCategory, boolean type, Date date, double amount, String recordDesc) {
+    public boolean addRecord(Account account, String nameCategory, boolean type, Date date, double amount, String recordDesc) {
+        //Account account = dbService.getAccount(descAccount);
+        if (account != null) {
+            Category category = dbService.getCategory(nameCategory);
+            logger.info("Added new record to account: {}", account.getDescription());
+            dbService.addRecord(account, new Record(date, category, type, amount, recordDesc));
+            return true;
+        }
         return false;
     }
 
@@ -100,6 +104,17 @@ public class FinancialManagerWithHibernate implements Manageable {
     @Override
     public Set<Category> getCategories() {
         List<Category> list = dbService.getCategories();
-        return new TreeSet<>(list);
+        return new HashSet<>(list);
+    }
+
+    @Override
+    public boolean addCategory(String text) {
+
+        if (text != null && !"".equals(text)) {
+            logger.info("Added new category - {}", text);
+            dbService.addCategory(new Category(text));
+            return true;
+        }
+        return false;
     }
 }
