@@ -72,6 +72,7 @@ public class RecordForm extends JFrame{
         Box datePane = Box.createHorizontalBox();
         JLabel lDate = new JLabel("Дата: ");
         // TODO: 05.04.2016 заменить на что-то типа datePicker
+        //JDatePicker datePicker = new JDatePickerImpl();
         tDate = new JTextField(26);
 
 
