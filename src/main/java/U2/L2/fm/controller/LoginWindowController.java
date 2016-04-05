@@ -1,5 +1,6 @@
 package U2.L2.fm.controller;
 
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.interfaces.Manageable;
@@ -113,6 +114,11 @@ public class LoginWindowController implements GUI {
             strData[i] = data[i].getDescription();
         }
         return strData;
+    }
+
+    @Override
+    public Set<Category> getCategories() {
+        return fm.getCategories();
     }
 
 

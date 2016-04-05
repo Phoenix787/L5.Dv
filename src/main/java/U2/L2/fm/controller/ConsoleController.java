@@ -2,6 +2,7 @@ package U2.L2.fm.controller;
 
 import U2.L2.fm.model.FinancialManager;
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
 import U2.L2.fm.model.interfaces.Manageable;
@@ -71,6 +72,11 @@ public class ConsoleController implements GUI {
     @Override
     public String[] updateListAccount() {
         return new String[0];
+    }
+
+    @Override
+    public Set<Category> getCategories() {
+        return null;
     }
 
 

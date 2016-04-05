@@ -18,7 +18,7 @@ public class AccountForm extends JDialog {
     private final GUI controller;
     private  JTextField tfDescription;
     private  JTextField tfAmount;
-    MainWindow parent;
+    private MainWindow parent;
 
 
     public AccountForm(GUI controller, MainWindow parent) {

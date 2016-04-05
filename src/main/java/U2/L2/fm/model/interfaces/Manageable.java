@@ -1,6 +1,7 @@
 package U2.L2.fm.model.interfaces;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 
 import java.util.Date;
@@ -28,4 +29,5 @@ public interface Manageable {
 
     Set<Record> getRecords(Account account);
 
+    Set<Category> getCategories();
 }

@@ -1,6 +1,7 @@
 package U2.L2.fm.model;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.datasets.User;
 import U2.L2.fm.model.interfaces.Manageable;
@@ -9,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class FinancialManagerWithHibernate implements Manageable {
     private DBService dbService;
@@ -90,5 +93,13 @@ public class FinancialManagerWithHibernate implements Manageable {
     @Override
     public Set<Record> getRecords(Account account) {
         return dbService.getRecords(account);
+    }
+
+
+/*--------------------------------------------------- CATEGORY ----------------------------------------------------*/
+    @Override
+    public Set<Category> getCategories() {
+        List<Category> list = dbService.getCategories();
+        return new TreeSet<>(list);
     }
 }

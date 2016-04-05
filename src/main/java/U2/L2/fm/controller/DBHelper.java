@@ -112,6 +112,11 @@ public class DBHelper {
         return new DAO(conn).getCategoryByName(nameCategory);
     }
 
+    public Set<Category> getCategories() {
+        DAO dao = new DAO(conn);
+        return dao.getCategories();
+    }
+
 
     public void addAccount(User user, Account account){
         DAO dao = new DAO(conn);
@@ -166,6 +171,7 @@ public class DBHelper {
         closeResource(conn);
         conn = null;
     }
+
 
 
 }

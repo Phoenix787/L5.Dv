@@ -4,6 +4,7 @@ import U2.L2.fm.model.DatabaseListModel;
 import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.Record;
 import U2.L2.fm.model.interfaces.GUI;
+import U2.L2.fm.model.tableModel.DatabaseTableModel;
 import U2.L2.fm.model.util.ExitAction;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +31,7 @@ public class MainWindow extends JFrame {
 
     private final GUI controller;
     private DatabaseListModel<String> dim;
+    private DatabaseTableModel dtm;
     private JTable jTable;
     private JList<String> jList;
     private JPanel panel;
@@ -75,10 +77,9 @@ public class MainWindow extends JFrame {
                     Account account = controller.getAccount(element);
                     Set<Record> records = controller.getRecords(account);
 
-                    for (Record record : records) {
-                        System.out.println(record.toString());
-                    }
-                    //jTable.setModel();
+                    dtm.setDataSource(records);
+
+                    jTable.setModel(dtm);
                     // TODO: 04.04.2016 написать dataModel для таблицы по образцу DatabaseListModel
 
 
@@ -95,17 +96,19 @@ public class MainWindow extends JFrame {
         // TODO: 31.03.2016 добавить JTable для размещения в ней данных о транзакции (Record)
         // https://examples.javacodegeeks.com/desktop-java/swing/jtable/java-jtable-example/
 
-        String[] data = {"Дата", "Описание", "Сумма", "Категория"};
-        TableColumnModel headerColumns = new DefaultTableColumnModel();
+//        String[] data = {"Дата", "Описание", "Сумма", "Категория"};
+//        TableColumnModel headerColumns = new DefaultTableColumnModel();
+//
+//        for (int i = 0; i < data.length; i++) {
+//            TableColumn h = new TableColumn(0);
+//            h.setHeaderValue(data[i]);
+//            headerColumns.addColumn(h);
+//        }
 
-        for (int i = 0; i < data.length; i++) {
-            TableColumn h = new TableColumn(0);
-            h.setHeaderValue(data[i]);
-            headerColumns.addColumn(h);
-        }
+        dtm = new DatabaseTableModel();
 
-        jTable = new JTable();
-        jTable.setTableHeader(new JTableHeader(headerColumns));
+        jTable = new JTable(dtm);
+       // jTable.setTableHeader(new JTableHeader(headerColumns));
 
         wrap.add(Box.createHorizontalStrut(5));
         JScrollPane tableScrollPane = new JScrollPane(jTable,

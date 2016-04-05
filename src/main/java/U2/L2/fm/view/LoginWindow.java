@@ -73,7 +73,7 @@ public class LoginWindow extends JFrame {
         panel.add(pfPassword, cs);
 
         JLabel lbRegister = new JLabel("Register", JLabel.RIGHT);
-        lbRegister.setFont(new Font(Font.SANS_SERIF, FontUIResource.BOLD, 12));
+        lbRegister.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
         lbRegister.setForeground(Color.blue);
         lbRegister.addMouseListener(new MouseAdapter() {
             @Override

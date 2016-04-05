@@ -1,6 +1,7 @@
 package U2.L2.fm.model.interfaces;
 
 import U2.L2.fm.model.datasets.Account;
+import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.datasets.Record;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public interface GUI {
     Account getAccount(String desc);
 
     String[] updateListAccount();
+
+    Set<Category> getCategories();
 
 
 }

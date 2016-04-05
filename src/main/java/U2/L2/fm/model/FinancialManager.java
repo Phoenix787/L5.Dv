@@ -108,4 +108,12 @@ public class FinancialManager implements Manageable {
     }
 
 
+    //------------------------------CATEGORY--------------------------------------------
+
+    @Override
+    public Set<Category> getCategories() {
+        return dbHelper.getCategories();
+    }
+
+
 }
