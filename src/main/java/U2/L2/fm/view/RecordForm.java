@@ -107,6 +107,8 @@ public class RecordForm extends JFrame{
         return categoryNames;
     }
 
+    // TODO: 05.04.2016 updateCategories()
+
     public void start(){
         setVisible(true);
     }

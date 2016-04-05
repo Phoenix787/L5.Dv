@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 public class CategoryForm extends JDialog {
     private GUI controller;
-    RecordForm parent;
+    private RecordForm parent;
 
     public CategoryForm(GUI controller, RecordForm parent) {
         this.controller = controller;
