@@ -5,12 +5,17 @@ import U2.L2.fm.model.comboBoxModel.ComboboxCategoryModel;
 import U2.L2.fm.model.datasets.Account;
 import U2.L2.fm.model.datasets.Category;
 import U2.L2.fm.model.interfaces.GUI;
+import org.jdatepicker.impl.DateComponentFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * Created by Сергеева on 04.04.2016.
@@ -19,11 +24,11 @@ public class RecordForm extends JFrame{
     private GUI controller;
     private Boolean succeed;
     private JComboBox<String> comboBoxCategory;
-    private final JTextField tDate;
     private final JCheckBox chExpend;
     private final JTextField tAmount;
     private final JTextField tDescription;
     private boolean succeeded;
+    private Date selectedDate;
     private MainWindow parent;
 
 
@@ -71,13 +76,17 @@ public class RecordForm extends JFrame{
 
         Box datePane = Box.createHorizontalBox();
         JLabel lDate = new JLabel("Дата: ");
-        // TODO: 05.04.2016 заменить на что-то типа datePicker
-        //JDatePicker datePicker = new JDatePickerImpl();
-        tDate = new JTextField(26);
-
-
+        
+        JDatePickerImpl datePicker = getjDatePicker();        
+        setDate((Date) datePicker.getModel().getValue());
+        
+        datePicker.addActionListener(e -> {
+            //выбранную дату в переменную selectedDate
+            selectedDate = (Date) datePicker.getModel().getValue();
+        });
+        
         datePane.add(lDate);
-        datePane.add(tDate);
+        datePane.add(datePicker);
 
         Box ctrPane = Box.createHorizontalBox();
         JButton btnOk = new JButton("OK");
@@ -85,10 +94,10 @@ public class RecordForm extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (controller.addRecord(account, comboBoxCategory.getSelectedItem().toString(), getDate(), getAmount(), isChecked(), getRecDesc())){
-                    JOptionPane.showMessageDialog(RecordForm.this, "New account to " + controller.getOwner() +
-                            " is added.", "New Account", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(RecordForm.this, "New record to " + controller.getOwner() +
+                            " is added.", "New Record", JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
-                    //после закрытия формы обновить данные на MainWindow JTable datamodel!!!!
+                    // TODO: 06.04.2016 после закрытия формы обновить данные на MainWindow JTable datamodel!!!!
 //                    Set<String> data = updateListAccount();
 //                    DatabaseListModel<String> stringDatabaseListModel = new DatabaseListModel<>();
 //                    stringDatabaseListModel.setDataSource(data);
@@ -137,6 +146,18 @@ public class RecordForm extends JFrame{
     }
 
     @NotNull
+    private JDatePickerImpl getjDatePicker() {
+        UtilDateModel model = new UtilDateModel();
+        model.setSelected(true);
+        Properties properties = new Properties();
+        properties.put("text.today", "Сегодня");
+        properties.put("text.today", "Сегодня");
+        properties.put("text.today", "Сегодня");
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
+        return new JDatePickerImpl(datePanel, new DateComponentFormatter());
+    }
+
+    @NotNull
     public String[] getCategoriesForComboCategories(GUI controller) {
         ComboboxCategoryModel<Category> cm = new ComboboxCategoryModel<>();
         cm.setCategories(controller.getCategories());
@@ -159,8 +180,12 @@ public class RecordForm extends JFrame{
         setVisible(true);
     }
 
-    private Date getDate(){
-        return new Date(Long.valueOf(tDate.getText()));
+    public Date getDate() {
+        return selectedDate;
+    }
+
+    public void setDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
     }
 
     private String getRecDesc(){

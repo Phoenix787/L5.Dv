@@ -18,7 +18,7 @@ public class Category {
     @Column(name = "name")
     private String nameCategory;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "category")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "category")
     private List<Record> records;
 
     public Category(Long id, String nameCategory) {

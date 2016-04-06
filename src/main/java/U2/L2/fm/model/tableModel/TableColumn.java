@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public enum TableColumn {
 
-    DESC(1, "Описание"),
-    DATE(2,"Дата"),
-    AMOUNT(3, "Сумма"),
-    CATEGORY(4, "Категория"),
-    EXPAND(5, "Расход?");
+    DESC(0, "Описание"),
+    DATE(1,"Дата"),
+    AMOUNT(2, "Сумма"),
+    CATEGORY(3, "Категория"),
+    EXPAND(4, "Расход?");
 
     private TableColumn(int index, String name){
         this.index = index;

@@ -28,11 +28,11 @@ public class Record {
     @Column(name = "description")
     private String recordName;
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToOne(cascade= {CascadeType.ALL}, fetch=FetchType.LAZY)
+    @ManyToOne(cascade= {CascadeType.MERGE}, fetch=FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

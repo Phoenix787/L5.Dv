@@ -69,4 +69,12 @@ public class DatabaseTableModel extends AbstractTableModel {
                 return null;
         }
     }
+    // Returns the name of the given column index
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    public Class<?> getColumnClasses(int col) {
+        return columnClasses[col];
+    }
 }

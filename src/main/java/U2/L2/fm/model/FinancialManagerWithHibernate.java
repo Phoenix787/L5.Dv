@@ -87,8 +87,8 @@ public class FinancialManagerWithHibernate implements Manageable {
         //Account account = dbService.getAccount(descAccount);
         if (account != null) {
             Category category = dbService.getCategory(nameCategory);
-            logger.info("Added new record to account: {}", account.getDescription());
             dbService.addRecord(account, new Record(date, category, type, amount, recordDesc));
+            logger.info("Added new record to account: {}", account.getDescription());
             return true;
         }
         return false;

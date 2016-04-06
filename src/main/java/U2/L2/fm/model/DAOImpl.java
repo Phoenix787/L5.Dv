@@ -123,7 +123,8 @@ public class DAOImpl implements DataStore {
     public void addRecord(Account account, Record record) {
         try {
             record.setAccount(account);
-            session.save(record);
+
+            session.persist(record);
             //account.getRecords().add(record);
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,6 +167,6 @@ public class DAOImpl implements DataStore {
     }
 
     public Category getCategory(String nameCategory) {
-        return (Category)session.createQuery("from Category where nameCategory = " + nameCategory).uniqueResult();
+        return (Category)session.createQuery("from Category where nameCategory = '" + nameCategory + "'").uniqueResult();
     }
 }

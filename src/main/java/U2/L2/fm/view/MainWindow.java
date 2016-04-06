@@ -63,20 +63,18 @@ public class MainWindow extends JFrame {
         jList = getJList();
         jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList.addListSelectionListener(new ListSelectionListener() {
+            String element;
+            Account account;
+            Set<Record> records;
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
                 if (e.getValueIsAdjusting()) {
-                    String element = jList.getSelectedValue();
-                    Account account = controller.getAccount(element);
-                    Set<Record> records = controller.getRecords(account);
-
+                    element = jList.getSelectedValue();
+                    account = controller.getAccount(element);
+                    records = controller.getRecords(account);
                     dtm.setDataSource(records);
-
                     jTable.setModel(dtm);
-                    // TODO: 04.04.2016 написать dataModel для таблицы по образцу DatabaseListModel
-
-
                 }
             }
         });
@@ -86,21 +84,9 @@ public class MainWindow extends JFrame {
                 TitledBorder.CENTER, TitledBorder.TOP));
 
         wrap.add(listScrollPane);
-
-        // TODO: 31.03.2016 добавить JTable для размещения в ней данных о транзакции (Record)
-        // https://examples.javacodegeeks.com/desktop-java/swing/jtable/java-jtable-example/
-
-//        String[] data = {"Дата", "Описание", "Сумма", "Категория"};
-//        TableColumnModel headerColumns = new DefaultTableColumnModel();
-//
-//        for (int i = 0; i < data.length; i++) {
-//            TableColumn h = new TableColumn(0);
-//            h.setHeaderValue(data[i]);
-//            headerColumns.addColumn(h);
-//        }
+        // TODO: 06.04.2016 перед таблицей сделать два лейбла с информацией о сумме счета и расходах
 
         dtm = new DatabaseTableModel();
-
         jTable = new JTable(dtm);
        // jTable.setTableHeader(new JTableHeader(headerColumns));
 
@@ -115,12 +101,6 @@ public class MainWindow extends JFrame {
 
         panel.add(header);
         panel.add(wrap);
-
-
-
-        // TODO: 30.03.2016 JTable
-
-
 
 
         JPanel btnPanel = new JPanel();
@@ -181,6 +161,10 @@ public class MainWindow extends JFrame {
     void updateJList(){
         jList.setModel(dim);
     }
+
+    /**
+     * запускаем форму
+     */
 
     public void start(){
 

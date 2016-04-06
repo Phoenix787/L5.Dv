@@ -135,6 +135,7 @@ public class DBService {
         DAOImpl dao = new DAOImpl(session);
         dao.addRecord(account, record);
         session.getTransaction().commit();
+        session.flush();
         session.close();
     }
 
@@ -184,6 +185,7 @@ public class DBService {
         DAOImpl dao = new DAOImpl(session);
         Category result = dao.getCategory(nameCategory);
         session.getTransaction().commit();
+        session.flush();
         session.close();
         return result;
     }
