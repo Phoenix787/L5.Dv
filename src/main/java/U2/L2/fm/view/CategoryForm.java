@@ -4,13 +4,12 @@ import U2.L2.fm.model.comboBoxModel.CategoryModel;
 import U2.L2.fm.model.interfaces.GUI;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Сергеева on 05.04.2016.
  */
 public class CategoryForm extends JDialog {
+    private static final long serialVersionUID = 517367056193730429L;
     private GUI controller;
     private RecordForm parent;
     private Boolean succeeded;
@@ -22,14 +21,13 @@ public class CategoryForm extends JDialog {
     }
 
 
-    public void createGUIForm(){
+    private void createGUIForm(){
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setModal(true);
         setTitle("Добавить категорию");
 
         setLocationRelativeTo(null);
-        //setModal(true);
         setResizable(false);
 
         Box main = Box.createVerticalBox();
@@ -42,29 +40,22 @@ public class CategoryForm extends JDialog {
 
         Box ctrPane = Box.createHorizontalBox();
         JButton btnOk = new JButton("OK");
-        btnOk.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (controller.addCategory(tDescription.getText())){
-                    JOptionPane.showMessageDialog(CategoryForm.this, "Новая категория " + tDescription.getText() +
-                            " is added.", "Новая категория", JOptionPane.INFORMATION_MESSAGE);
-                    succeeded = true;
-                    //после закрытия формы обновить данные на RecordForm
-                    CategoryModel model = new CategoryModel();
-                    model.setCategories(controller.getCategories());
+        btnOk.addActionListener(e -> {
+            if (controller.addCategory(tDescription.getText())){
+                JOptionPane.showMessageDialog(CategoryForm.this, "Новая категория " + tDescription.getText() +
+                        " is added.", "Новая категория", JOptionPane.INFORMATION_MESSAGE);
+                succeeded = true;
+                //после закрытия формы обновить данные на RecordForm
+                CategoryModel model = new CategoryModel();
+                model.setCategories(controller.getCategories());
 
-                    parent.updateComboBox(model);
-
-
-                    dispose();
-
-                }
+                parent.updateComboBox(model);
+                dispose();
             }
         });
         JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(e -> dispose());
         ctrPane.add(btnOk);
-        // TODO: 05.04.2016 добавить слушатель на кнопку и добавлять в базу данных новую категорию (на примере AccountAdd)
         ctrPane.add(btnCancel);
 
         main.add(descPane);

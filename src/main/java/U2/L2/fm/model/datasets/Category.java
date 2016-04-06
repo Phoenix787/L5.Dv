@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Comparable<Category> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
@@ -58,4 +58,12 @@ public class Category {
     public void setRecords(List<Record> records) {
         this.records = records;
     }
+
+    @Override
+    public int compareTo(Category o) {
+        return nameCategory.compareTo(o.getNameCategory());
+    }
+
+
+
 }

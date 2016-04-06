@@ -88,7 +88,6 @@ public class MainWindow extends JFrame {
 
         dtm = new DatabaseTableModel();
         jTable = new JTable(dtm);
-       // jTable.setTableHeader(new JTableHeader(headerColumns));
 
         wrap.add(Box.createHorizontalStrut(5));
         JScrollPane tableScrollPane = new JScrollPane(jTable,
@@ -202,7 +201,9 @@ public class MainWindow extends JFrame {
     private JMenu createFileMenu(){
         JMenu file = new JMenu("File");
         JMenuItem changeUser = new JMenuItem("Сменить пользователя", new ImageIcon("img/open.gif"));
+        // TODO: 06.04.2016 повесить слушателя на смену пользователя
         JMenuItem exit = new JMenuItem(new ExitAction());
+        // TODO: 06.04.2016 повесить слушателя на выход из приложения
         file.add(changeUser);
         file.addSeparator();
         file.add(exit);

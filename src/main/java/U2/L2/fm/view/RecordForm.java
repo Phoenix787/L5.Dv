@@ -19,11 +19,12 @@ import java.util.Properties;
 
 /**
  * Created by Сергеева on 04.04.2016.
+ *
  */
-public class RecordForm extends JFrame{
+public class RecordForm extends JDialog{
+    private static final long serialVersionUID = -940553145565410582L;
     private GUI controller;
-    private Boolean succeed;
-    private JComboBox<String> comboBoxCategory;
+    private JComboBox comboBoxCategory;
     private final JCheckBox chExpend;
     private final JTextField tAmount;
     private final JTextField tDescription;
@@ -98,6 +99,7 @@ public class RecordForm extends JFrame{
                             " is added.", "New Record", JOptionPane.INFORMATION_MESSAGE);
                     succeeded = true;
                     // TODO: 06.04.2016 после закрытия формы обновить данные на MainWindow JTable datamodel!!!!
+
 //                    Set<String> data = updateListAccount();
 //                    DatabaseListModel<String> stringDatabaseListModel = new DatabaseListModel<>();
 //                    stringDatabaseListModel.setDataSource(data);
@@ -109,13 +111,14 @@ public class RecordForm extends JFrame{
 
 
                 } else{
-                    JOptionPane.showMessageDialog(RecordForm.this, "Such account already exists. " +
-                            "\nPlease choose another description to account", "New Account", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(RecordForm.this, "Ошибка при добавлении транзакции к счету",
+                            "Ошибка", JOptionPane.ERROR_MESSAGE);
                     succeeded = false;
                    // tfDescription.setText("");
                 }
             }
         });
+
         JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(e -> dispose());
         JButton btnAddCategory = new JButton("Добавить категорию");
@@ -127,8 +130,6 @@ public class RecordForm extends JFrame{
         ctrPane.add(Box.createHorizontalGlue());
         ctrPane.add(btnAddCategory);
 
-// TODO: 05.04.2016 добавить позицию дата в форму и JLabel (кликабельный) для добавления категории
-
         main.add(descPane);
         main.add(categoryPane);
         main.add(amountPane);
@@ -138,11 +139,7 @@ public class RecordForm extends JFrame{
 
         getContentPane().add(main);
 
-
         pack();
-
-
-
     }
 
     @NotNull
