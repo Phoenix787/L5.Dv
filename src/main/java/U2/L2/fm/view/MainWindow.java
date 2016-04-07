@@ -30,10 +30,15 @@ public class MainWindow extends JFrame {
     private JTable jTable;
     private JList<String> jList;
     private GridBagConstraints constraints;
+    private JLabel accountAmount;
 
     MainWindow(GUI controller){
         this.controller = controller;
 
+        createGUI(this.controller);
+    }
+
+    private void createGUI(GUI controller) {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Financial Manager: " + controller.getOwner());
 
@@ -60,42 +65,54 @@ public class MainWindow extends JFrame {
 
         JPanel wrap = new JPanel();
         wrap.setLayout(new BoxLayout(wrap, BoxLayout.X_AXIS));
-        jList = getJList();
-        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jList.addListSelectionListener(new ListSelectionListener() {
-            String element;
-            Account account;
-            Set<Record> records;
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
 
-                if (e.getValueIsAdjusting()) {
-                    element = jList.getSelectedValue();
-                    account = controller.getAccount(element);
-                    records = controller.getRecords(account);
-                    dtm.setDataSource(records);
-                    jTable.setModel(dtm);
-                }
-            }
-        });
+//        dtm = new DatabaseTableModel();
+//        jTable = new JTable(dtm);
+
+        createList();
         JScrollPane listScrollPane = new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         listScrollPane.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(),"Accounts",
-                TitledBorder.CENTER, TitledBorder.TOP));
+                BorderFactory.createEtchedBorder(),"Счета",
+                TitledBorder.LEFT, TitledBorder.TOP));
 
-        wrap.add(listScrollPane);
         // TODO: 06.04.2016 перед таблицей сделать два лейбла с информацией о сумме счета и расходах
 
-        dtm = new DatabaseTableModel();
-        jTable = new JTable(dtm);
+        createTable();
 
-        wrap.add(Box.createHorizontalStrut(5));
         JScrollPane tableScrollPane = new JScrollPane(jTable,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScrollPane.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(),"Records of account",
-                TitledBorder.CENTER, TitledBorder.TOP));
-        wrap.add(tableScrollPane);
+                BorderFactory.createEtchedBorder(),"Список транзакций счета",
+                TitledBorder.LEFT, TitledBorder.TOP));
+
+        JPanel wrapRecordPane = new JPanel();
+        wrapRecordPane.setLayout(new BoxLayout(wrapRecordPane, BoxLayout.Y_AXIS));
+
+        JPanel lbPane = new JPanel();
+        lbPane.setLayout(new BoxLayout(lbPane, BoxLayout.X_AXIS));
+        lbPane.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(), BorderFactory.createEmptyBorder(5,5,5,5)),
+                "Информация по счету", TitledBorder.LEFT, TitledBorder.TOP)
+        );
+
+        JLabel lbAccount = new JLabel("Сумма счета: ");
+
+        accountAmount = new JLabel("-------");
+        accountAmount.setFont(new Font("", Font.BOLD, 12));
+
+        lbPane.add(lbAccount);
+        lbPane.add(Box.createHorizontalStrut(12));
+        lbPane.add(accountAmount);
+        lbPane.add(Box.createHorizontalGlue());
+
+        wrapRecordPane.add(lbPane);
+        wrapRecordPane.add(Box.createVerticalStrut(10));
+        wrapRecordPane.add(tableScrollPane);
+
+
+        wrap.add(listScrollPane);
+        wrap.add(Box.createHorizontalStrut(5));
+        wrap.add(wrapRecordPane);
 
 
         panel.add(header);
@@ -115,8 +132,8 @@ public class MainWindow extends JFrame {
         btnAddRecord.addActionListener(e -> {
             String accountName = jList.getSelectedValue();
             if (accountName != null && !"".equals(accountName)) {
-                Account account = controller.getAccount(accountName);
-                new RecordForm(controller, account, this).start();
+                Account account1 = controller.getAccount(accountName);
+                new RecordForm(controller, account1, this).start();
             } else {
                 JOptionPane.showMessageDialog(null, "Please select an account from the list to which you want to attach a transaction ",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -125,9 +142,38 @@ public class MainWindow extends JFrame {
         btnPanel.add(btnAddRecord);
 
 
-
         getContentPane().add(panel, BorderLayout.CENTER);
         getContentPane().add(btnPanel, BorderLayout.PAGE_END);
+    }
+
+    private void createTable() {
+        dtm = new DatabaseTableModel();
+        jTable = new JTable(dtm);
+    }
+
+    private void createList() {
+        jList = getJList();
+        //jList.setSelectedIndex(0);
+        // getRecordBySelectedAccount(jList.getSelectedValue());
+        jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jList.addListSelectionListener(new ListSelectionListener() {
+
+            //Account account = controller.getAccount(element);
+            //Set<Record> records;
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (e.getValueIsAdjusting()) {
+                    String element = jList.getSelectedValue();
+                    getRecordBySelectedAccount(element);
+//                    element = jList.getSelectedValue();
+//                    account = controller.getAccount(element);
+//                    records = controller.getRecords(account);
+//                    dtm.setDataSource(records);
+//                    jTable.setModel(dtm);
+                }
+            }
+        });
     }
 
 
@@ -218,6 +264,15 @@ public class MainWindow extends JFrame {
         edit.add(editAccount);
 
         return edit;
+    }
+
+    private void getRecordBySelectedAccount(String element){
+        //element = jList.getSelectedValue();
+        Account account = controller.getAccount(element);
+        accountAmount.setText(Double.toString(account.getAmount()));
+        Set<Record> records = controller.getRecords(account);
+        dtm.setDataSource(records);
+        jTable.setModel(dtm);
     }
 
 

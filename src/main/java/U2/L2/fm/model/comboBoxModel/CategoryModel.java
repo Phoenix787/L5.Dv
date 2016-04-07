@@ -12,8 +12,9 @@ import java.util.Set;
  */
 public class CategoryModel extends DefaultListModel implements ComboBoxModel {
 
+    private static final long serialVersionUID = -6664308809828218533L;
     private final ArrayList<String> categories = new ArrayList<>();
-    Object selected;
+    private Object selected;
 
 
     public void setCategories(Set<Category> rs) {

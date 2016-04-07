@@ -81,9 +81,8 @@ public class LoginWindowController implements GUI {
     /**
      * Метод, позволяющий получить список счетов для конкретного пользователя
      * @param owner - владелец счетов
-     * @return Set<Accounts></Accounts>
+     * @return Set<Accounts>
      */
-
     @Override
     public Set<Account> getAccounts(String owner) {
 
@@ -105,7 +104,6 @@ public class LoginWindowController implements GUI {
      * чтобы обновить модель списка.
      * @return String[]
      */
-
     public String[] updateListAccount() {
         Set<Account> temp = getAccounts(getOwner());
         Account[] data = temp.toArray(new Account[temp.size()]);

@@ -45,7 +45,9 @@ public class RecordForm extends JDialog{
         setResizable(false);
 
         Box main = Box.createVerticalBox();
+        main.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5), BorderFactory.createEtchedBorder()));
         Box descPane = Box.createHorizontalBox();
+        descPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         JLabel lDescription = new JLabel("Описание: ");
         tDescription = new JTextField(26);
 
@@ -53,6 +55,7 @@ public class RecordForm extends JDialog{
         descPane.add(tDescription);
 
         Box categoryPane = Box.createHorizontalBox();
+        categoryPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         JLabel lCategory = new JLabel("Категория: ");
       //  String[] categoryNames = getCategoriesForComboCategories(this.controller);
         CategoryModel cm = new CategoryModel();
@@ -63,6 +66,7 @@ public class RecordForm extends JDialog{
         categoryPane.add(comboBoxCategory);
 
         Box amountPane = Box.createHorizontalBox();
+        amountPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         JLabel lAmount = new JLabel("Сумма");
         tAmount = new JTextField(15);
 
@@ -76,6 +80,7 @@ public class RecordForm extends JDialog{
         amountPane.add(chExpend);
 
         Box datePane = Box.createHorizontalBox();
+        datePane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         JLabel lDate = new JLabel("Дата: ");
         
         JDatePickerImpl datePicker = getjDatePicker();        
@@ -90,6 +95,7 @@ public class RecordForm extends JDialog{
         datePane.add(datePicker);
 
         Box ctrPane = Box.createHorizontalBox();
+        ctrPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         JButton btnOk = new JButton("OK");
         btnOk.addActionListener(new ActionListener() {
             @Override
@@ -196,4 +202,7 @@ public class RecordForm extends JDialog{
     private Boolean isChecked() {
         return (chExpend.isSelected())? Boolean.TRUE : Boolean.FALSE;
     }
+
+
 }
+// TODO: 07.04.2016 при добавлении транзакции, в зависимости от того доход это или расход, нужно прибавлять или отнимать от суммы счета сумму транзакции и сохранять это в account

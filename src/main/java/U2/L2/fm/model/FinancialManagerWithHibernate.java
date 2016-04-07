@@ -38,7 +38,6 @@ public class FinancialManagerWithHibernate implements Manageable {
         User user = dbService.getUser(name);
         if (user != null){
             logger.info("User with such login exists. {} rejected to Login form", name);
-            //System.out.println("User with such login exists. Please choose other login or sign in with your login/password.");
             return false;
         }
 
@@ -59,6 +58,8 @@ public class FinancialManagerWithHibernate implements Manageable {
     public String getOwner() {
         return owner;
     }
+
+    /*------------------ACCOUNT---------------------------------------------------------*/
 
     @Override
     public boolean addAccount(String username, String accountDesc, double amount) {
@@ -81,6 +82,8 @@ public class FinancialManagerWithHibernate implements Manageable {
     public Account getAccount(String desc) {
         return dbService.getAccount(desc);
     }
+
+    /*-------------------------RECORD------------------------------------------------------------*/
 
     @Override
     public boolean addRecord(Account account, String nameCategory, boolean type, Date date, double amount, String recordDesc) {

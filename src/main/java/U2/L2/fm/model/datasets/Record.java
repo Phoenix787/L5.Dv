@@ -1,5 +1,7 @@
 package U2.L2.fm.model.datasets;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "records")
-public class Record {
+public class Record implements Comparable<Record>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
@@ -149,5 +151,10 @@ public class Record {
                 ", account=" + account +
                 ", category=" + category +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull Record o) {
+        return (int) (recordId - o.recordId);
     }
 }

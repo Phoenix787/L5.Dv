@@ -3,6 +3,7 @@ package U2.L2.fm.model.datasets;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Сергеева on 18.03.2016.
@@ -10,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class Account implements Comparable<Account> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
@@ -27,7 +28,7 @@ public class Account {
     private User user;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "account")
-    private Set<Record> records = new HashSet<>();
+    private Set<Record> records = new TreeSet<>();
 
 
     public Account(){
@@ -88,4 +89,8 @@ public class Account {
     }
 
 
+    @Override
+    public int compareTo(Account o) {
+        return (int)(accountId - o.accountId);
+    }
 }
